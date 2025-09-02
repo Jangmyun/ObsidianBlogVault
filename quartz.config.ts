@@ -13,9 +13,10 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: {
-      provider: "plausible",
+      provider: "google",
+      tagId: "G-FPPHKY5J6F",
     },
-    locale: "en-US",
+    locale: "ko-KR",
     baseUrl: "jangmyun.github.io/ObsidianBlogVault/",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
