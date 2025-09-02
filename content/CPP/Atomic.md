@@ -1,7 +1,7 @@
 ---
 title: "[C++] Atomic"
 description: Example Description
-draft: true
+draft: false
 tags:
   - cpp
 ---

@@ -1,5 +1,5 @@
 ---
-title: Welcome to Quartz
+title: Jangmyun's Vault
 ---
 
 This is a blank Quartz installation.
