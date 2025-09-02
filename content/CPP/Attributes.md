@@ -1,6 +1,6 @@
 ---
-title: "[CPP] Attributes"
-description: Example Description
+title: "[C++] Attributes"
+description: "`C++11` 부터 지원되는 기능으로 컴파일러에 추가정보를 전달하거나 코드를 보다 명확하게 만드는 데 사용한다."
 draft: false
 tags:
   - cpp
