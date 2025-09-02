@@ -2,9 +2,6 @@
 title: Jangmyun's Vault
 ---
 
-### Tags
-
-#cpp #computer_vision 
 
 ### Github information
 
