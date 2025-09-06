@@ -1,9 +1,17 @@
-1. Background
-2. The critical-section problem
-3. H/W Support for Synchronization
-4. Mutex and Semaphore
-5. Monitors
-6. Liveness
+---
+title: Example Title
+description: Example Description
+draft: true
+tags:
+  - example-tag
+---
+ 
+The rest of your content lives here. You can use **Markdown** here :)1. Background
+1. The critical-section problem
+2. H/W Support for Synchronization
+3. Mutex and Semaphore
+4. Monitors
+5. Liveness
 
 ### Background
 
