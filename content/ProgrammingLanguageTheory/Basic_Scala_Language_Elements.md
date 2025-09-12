@@ -1,7 +1,7 @@
 ---
 title: Basic Scala Language Elements
 description: 스칼라 언어 기초
-draft: true
+draft: false
 tags:
   - plt
 ---
