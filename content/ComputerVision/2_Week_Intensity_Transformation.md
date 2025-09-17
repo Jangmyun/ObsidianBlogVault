@@ -1,6 +1,6 @@
 ---
 title: "[CV] Intensity Transformation"
-description: Example Description
+description: Intensity Transformation이란?
 draft: false
 tags:
   - computer_vision
