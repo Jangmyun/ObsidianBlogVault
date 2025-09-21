@@ -4,6 +4,7 @@ description: HTTP란????
 draft: false
 tags:
   - computer_network
+  - web
 ---
  
 # HTTP (Hypertext Transfer Protocol)
