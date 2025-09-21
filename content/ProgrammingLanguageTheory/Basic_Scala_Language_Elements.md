@@ -1,9 +1,10 @@
 ---
-title: Basic Scala Language Elements
+title: "[PLT] Basic Scala Language Elements"
 description: 스칼라 언어 기초
 draft: false
 tags:
   - plt
+  - programming_language
 ---
 
 ## Variables

@@ -1,9 +1,10 @@
 ---
-title: Semantics
+title: "[PLT] Semantics"
 description: Semantics(의미론이란 ) 프로그램 실행 중 수행되는 행위를 기술함으로써 프로그램의 의미를 정의하는 방법이다.
 draft: false
 tags:
   - plt
+  - programming_language
 ---
 
 # Semantics (의미론)

@@ -4,6 +4,7 @@ description: Example Description
 draft: true
 tags:
   - plt
+  - programming_language
 ---
 이전 강의 ([[Modeling_Languages]]) 에서 Scala를 사용해서 간단한 `Expr`을 구현했다.
 

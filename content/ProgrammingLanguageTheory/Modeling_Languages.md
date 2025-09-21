@@ -4,6 +4,7 @@ description: Example Description
 draft: true
 tags:
   - plt
+  - programming_language
 ---
  
 ![[Screenshot 2025-09-12 at 21.08.03.png]]
