@@ -1,7 +1,7 @@
 ---
 title: User Authentication Mechanisms
 description: 유저 인증 메커니즘에 대해 알아보자
-draft: true
+draft: false
 tags:
   - computer_security
 ---
