@@ -1,9 +1,9 @@
 ---
 title: "[CV] Color Processing"
 description: 색상 공간의 이해와
-draft: true
+draft: false
 tags:
-  - example-tag
+  - computer_vision
 ---
  
 # Basics of Color
