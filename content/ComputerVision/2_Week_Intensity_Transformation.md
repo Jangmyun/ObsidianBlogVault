@@ -116,9 +116,7 @@ pointer는 `at` 연산자를 사용하는 것보다 빠르다.
 
 ```cpp
 void pixel_access_by_pointer() {
-  Mat image = imread(
-      "/Users/chu-ingyu/repos/university-study/computer_vision/1_week_dataset/"
-      "lena.png");
+  Mat image = imread("lena.png");
 
   int value, value_B, value_G, value_R, channels;
 
@@ -137,6 +135,30 @@ void pixel_access_by_pointer() {
   waitKey(0);
 }
 ```
+
+#### `data` function
+
+```cpp
+void pixel_access_by_data() {
+	Mat image = imread("lena.png");
+	
+	int value, value_B, value_G, value_R, channels;
+	
+	channels = image.channels();
+	
+	uchar* data = (uchar*)image.data;
+	
+	value_B = data[(50 * image.cols + 100) * channels + 0];
+	value_G = data[(50 * image.cols + 100) * channels + 1];
+	value_R = data[(50 * image.cols + 100) * channels + 2];
+	
+	cout << "value at (100,50): " << value_B << " " << value_G << " " << value_R
+       << endl;
+    
+    waitKey(0);
+}
+```
+
 
 `image.ptr<uchar>(50)` 은 이미지의 50번째 행의 **시작주소**를 반환한다.
 
