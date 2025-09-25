@@ -1,6 +1,6 @@
 ---
 title: "[CV] Color Processing"
-description: 색상 공간의 이해와
+description: 색 공간을 이해하고 컬러 이미지의 프로세싱 방법을 알아보자.
 draft: false
 tags:
   - computer_vision
@@ -159,3 +159,246 @@ $$
 
 색 밸런스가 좋은 사진은 모든 픽셀 색상의 평균값이 중립 회색에 가까울 것이라는 점을 기반으로 전체 색상을 보정
 
+
+
+---
+
+
+# 소스 코드 예제
+
+### Color Space Conversion
+
+```cpp
+void cvtColor(Mat src, Mat dst, int code, int dstCn =0);
+```
+
+- `code`: 변환에 사용할 색상 공간 변환 코드
+	- `COLOR_BGR2GRAY`
+	- `COLOR_BGR2HSV`
+	- `COLOR_BGR2HLS`
+	- `COLOR_GRAY2BGR`
+	- `COLOR_BGR2RGB`
+- `dstCn`: 출력 이미지의 채널 수를 지정, 기본값은 0으로 `code`에 따라 자동 결정
+
+#### example
+
+```cpp
+int main() {
+	Mat image, image_YUV;
+	
+	image = imread("image.png");
+
+	return 0;
+}
+```
+
+
+### Split / Merge
+
+#### Split
+
+multi-channel 을 여러개의 single-channel 로 분리
+
+```cpp
+void split(Mat src, Mat* mv);
+```
+
+#### Merge
+
+여러 개의 single-channel을 하나의 multi-channel 로 병합
+
+```cpp
+void merge(const Mat* mv, size_t count, OutputArray dst);
+```
+
+또는
+
+```cpp
+void merge(InputArrayOfArrays mv, OutputArray dst);
+```
+
+#### Example
+
+```cpp
+void testSplitAndMerge() {
+  Mat image, image_YUV, dst;
+  Mat yuv_channels[3];
+
+  image = imread("lena.png");
+
+  cvtColor(image, image_YUV, COLOR_BGR2YUV);
+
+  split(image_YUV, yuv_channels);
+
+  merge(yuv_channels, 3, dst);
+
+  imshow("input", image);
+  imshow("Y", yuv_channels[0]);
+  imshow("U", yuv_channels[1]);
+  imshow("V", yuv_channels[2]);
+  imshow("YUV image", dst);
+
+  waitKey(0);
+}
+```
+
+YUV 채널들을 `merge()` 한 결과가 이상한데, 이는 `imshow()` 함수가 BGR 로 이미지를 출력하기 때문
+
+![[Screenshot 2025-09-25 at 23.33.14.png]]
+
+
+## Color Processing
+
+### Usage of **HSI**
+
+#### Example
+
+```cpp
+void testHSI() {
+  Mat image = imread("colorful.png");
+
+  Mat HSV, intensity_change, mask_out, change_color;
+
+  vector<Mat> ic(3);
+  vector<Mat> mo(3);
+  vector<Mat> cc(3);
+
+  int rows = image.rows;
+  int cols = image.cols;
+
+  uchar* h;
+  uchar* s;
+  uchar* v;
+
+  cvtColor(image, HSV, COLOR_BGR2HSV);
+  split(HSV, ic);
+  split(HSV, mo);
+  split(HSV, cc);
+
+  // histogram equalize
+  equalizeHist(ic[2], ic[2]);
+
+  // masking out except orange
+  for (int r = 0; r < rows; r++) {
+    h = mo[0].ptr<uchar>(r);
+    s = mo[1].ptr<uchar>(r);
+
+    for (int c = 0; c < cols; c++) {
+      if (9 < h[c] && h[c] < 23) {
+        s[c] = s[c];
+      } else {
+        s[c] = 0;
+      }
+    }
+  }
+
+  // changing all colors
+  for (int r = 0; r < rows; ++r) {
+    h = cc[0].ptr<uchar>(r);
+    s = cc[1].ptr<uchar>(r);
+
+    for (int c = 0; c < cols; ++c) {
+      if (179 < (h[c] + 50)) {
+        h[c] = h[c] + 50 - 179;
+      } else {
+        h[c] += 50;
+      }
+    }
+  }
+
+  merge(ic, intensity_change);
+  merge(mo, mask_out);
+  merge(cc, change_color);
+
+  cvtColor(intensity_change, intensity_change, COLOR_HSV2BGR);
+  cvtColor(mask_out, mask_out, COLOR_HSV2BGR);
+  cvtColor(change_color, change_color, COLOR_HSV2BGR);
+
+  imshow("image", image);
+  imshow("intensity change", intensity_change);
+  imshow("mask out", mask_out);
+  imshow("change color", change_color);
+
+  waitKey(0);
+}
+```
+
+![[Screenshot 2025-09-26 at 00.05.04.png]]
+
+
+### Pseudo Coloring
+
+```cpp
+void testPseudoColoring() {
+  Mat gray = imread("xray.png", 0);
+
+  Mat color;
+
+  applyColorMap(gray, color, COLORMAP_JET);
+
+  imshow("gray", gray);
+  imshow("color", color);
+
+  waitKey(0);
+}
+```
+
+![[Screenshot 2025-09-26 at 00.07.07.png]]
+
+### White Balancing
+
+```cpp
+void white_balancing(Mat img) {
+  Mat bgr_channels[3];
+  split(img, bgr_channels);
+
+  double avg;
+  int sum, temp;
+
+  for (int channel = 0; channel < img.channels(); ++channel) {
+    sum = 0;
+    avg = 0;
+
+    for (int r = 0; r < img.rows; ++r) {
+      for (int c = 0; c < img.cols; ++c) {
+        sum += bgr_channels[channel].at<uchar>(r, c);
+      }
+    }
+
+    avg = sum / (img.rows * img.cols);
+
+    for (int r = 0; r < img.rows; ++r) {
+      for (int c = 0; c < img.cols; ++c) {
+        temp = (128 / avg) * bgr_channels[channel].at<uchar>(r, c);
+
+        if (255 < temp)
+          bgr_channels[channel].at<uchar>(r, c) = 255;
+        else
+          bgr_channels[channel].at<uchar>(r, c) = temp;
+      }
+    }
+  }
+
+  merge(bgr_channels, 3, img);
+}
+
+void testWhiteBalancing() {
+  Mat image = imread("balancing.png");
+  Mat balancing_result;
+
+  balancing_result = image.clone();
+
+  white_balancing(balancing_result);
+
+  imshow("image", image);
+  imshow("balancing", balancing_result);
+
+  waitKey(0);
+}
+```
+
+
+
+
+
+![[Screenshot 2025-09-26 at 00.31.06.png]]
