@@ -252,7 +252,6 @@ void gamma_correction() {
 
 ![[Screenshot 2025-09-11 at 03.24.14.png]]
 
-
 ## Spatial Filtering
 
 이미지의 각 픽셀 값을 주변의 픽셀과 결합해서 새 값으로 매핑
