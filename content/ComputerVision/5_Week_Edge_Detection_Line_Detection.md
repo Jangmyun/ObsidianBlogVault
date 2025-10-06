@@ -1,5 +1,5 @@
 ---
-title: Edge Detection과 Line Detection
+title: "[CV] Edge Detection과 Line Detection"
 description: Edge detection과 line detection을 알아보자
 draft: false
 tags:

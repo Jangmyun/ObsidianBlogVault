@@ -1,9 +1,9 @@
 ---
-title: Example Title
+title: "[OS] Operating System Structures"
 description: Example Description
 draft: true
 tags:
-  - example-tag
+  - operating_system
 ---
  
 The rest of your content lives here. You can use **Markdown** here :)# Operating-system services

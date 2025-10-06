@@ -1,9 +1,9 @@
 ---
-title: Example Title
+title: "[OS] CPU Scheduling"
 description: Example Description
 draft: true
 tags:
-  - example-tag
+  - operating_system
 ---
  
 The rest of your content lives here. You can use **Markdown** here :) # CPU Scheduling
