@@ -1,7 +1,7 @@
 ---
 title: "\b[CV] Image Segmentation"
 description: Image Segmentation 에 대해 알아보자
-draft: true
+draft: false
 tags:
   - computer_vision
 ---
