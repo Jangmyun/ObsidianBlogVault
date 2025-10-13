@@ -8,6 +8,91 @@ tags:
  
 # Image_Segmentation
 
+## Introduction
+
+### Image / Video Segmentation이란
+
+디지털 이미지를 여러 regions으로 분리하는 과정
+
+- Input: 그레이스케일 이미지나 컬러 이미지
+- Output (two-class 문제에 대해): binary 이미지 (0과 255)
+
+## Thresholding
+
+### 기본 개념
+
+- 가정
+	- 배경과 객체의 intensity가 다르다 
+	- 배경과 객체가 균일하다 (homogeneous)
+
+적절한 threshold 를 찾는 것이 중요하다.
+
+### Challenges
+
+- Noise
+	- 이미지에 노이즈가 포함돼있을 경우 노이즈 픽셀이 obj나 background의 분포를 벗어나 잘못 분석될 수 있음
+- Illumination and reflectance
+	- 이미지 내에서 조명과 반사가 균일하지 않을 경우 픽셀의 intensity 값이 크게 달라질 수 있음
+
+### Global Thresholding
+
+모든 픽셀에 대해 같은 임계값을 사용
+#### Basic method
+
+1. Global threshold $T$ 에 대한 초기 추정치 선택
+2. $T$를 기준으로 이미지를 두 그룹으로 분할
+3. 각 그룹의 평균 $mean(m1,m2)$ 계산
+4. 새로운 $T$를 계산 $T = 0.5 \times (m1 + m2)$
+5. $T$값 차이가 적을 때까지 2~4단계 반복
+
+#### Otsu's method
+
+Well-thresholded 클래스는 픽셀의 intensity 가 서로 뚜렷하게 구분되어야 한다는 가정에 기초
+
+즉, 클래스 간 best separation을 제공하는 threshold 값이 best threshold 값이 된다.
+
+이미지의 히스토그램에 대해 수행되는 계산을 기반으로 하여 최적의 $T$를 찾아냄
+
+1. normalized 히스토그램 계산
+2. 각 클래스 간 threshold $k$ 에 대해 클래스 간 분산 $\sigma_b^2$ 를 계산
+3. $\sigma_b^2$ 가 최대가 되는 임계값 $k$ 를 찾기
+
+### Local (adaptive) Thresholding
+
+픽셀마다 다른 임계값 적용
+
+인접 픽셀의 intensity 분포에 따라 thresholding 적용
+
+- `ADAPTIVE_THRESH_MEAN_C`
+	- $T(x,y) = mean of the blocksize \times blocksize neighborhood of (x,y) - C$
+	- $(x,y)$ 주변의 지정된 블록 사이즈 내의 픽셀 값들의 평균을 계산하고 상수 C를 빼기
+- `ADAPTIVE_THRESH_GAUSSIAN_C`
+	- $T(x,y) = a weighted sum (cross-correlation with a Gussian window) of the blocksize \times blocksize neighborhood of (x,y) - C$
+	- 가우시안 필터와의 cross-correlation 을 사용하여 이웃 픽셀들의 intensity에 가중치를 부여한 합을 계산하고 상수 C를 빼기
+
+## GrabCut
+
+1. Object를 포함하는 직사각형 영역 입력 -> 직사각형 밖은 background, 직사각형 안은 unknown
+2. 사용자가 준 정보에 따라 초기 라벨링 진행 -> foreground와 background
+3. **Gaussian Mixture Model** 을 사용하여 foreground와 background를 모델링
+
+**GMM*** - 조건부 확률  $p(A \cap B) = p(A|B)p(B) = p(B|A)p(A)$ 를 이용
+**Bayse rule** - $p(B|A) = \frac{p(A \cap B)}{p(A)} = \frac{p(A|B)p(B)}{p(A)}$
+
+A가 픽셀 값이고, B가 배경이라고 가정할 때, $p(A|B)$ (특정 픽셀 값이 배경에 속할 확률) 을 추정함으로써 $p(B|A)$ (특정 픽셀 값이 주어졌을 때 배경일 확률) 을 알아내기
+
+4. **GMM** 학습 이후 각 픽셀의 분포에 따라 probable foreground와 probable background로 라벨링
+5. 픽셀 분포를 바탕으로 그래프 구성 -> $각 그래프의 node = 픽셀$ 
+	- Source 노드와 Sink 노드 추가
+	- 모든 foreground 픽셀은 **Source**, background는 **Sink**에 연결
+6. 픽셀이 전경/배경일 확률에 따라 Source/Sink 노드를 잇는 엣지의 weight 설정
+7. 픽셀 간 엣지의 weight은 픽셀의 유사성 (색상 차이)에 따라 결정 -> 차이가 크면 weight(가중치)이 작다
+8. mincut 알고리즘으로 Source노드와 Sink 노드를 최소 비용 함수를 갖도록 그래프를 두 부분으로 분할 (cost는 잘린 엣지들의 weight 합)
+9. 그래프 분할 후 Source 연결된 픽셀 = 전경 / Sink 연결된 픽셀 = 배경
+10. 분류 결과가 변하지 않을때까지 과정을 계속 반복
+
+
+
 
 # Code
 
