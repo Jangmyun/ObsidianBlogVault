@@ -126,9 +126,7 @@ double threshold(
 
 ```cpp
 void testThreshold() {
-  Mat image = imread(
-      "/Users/chu-ingyu/repos/university-study/computer_vision/1_week_dataset/"
-      "lena.png");
+  Mat image = imread("lena.png");
   Mat dst;
 
   cvtColor(image, image, COLOR_BGR2GRAY);

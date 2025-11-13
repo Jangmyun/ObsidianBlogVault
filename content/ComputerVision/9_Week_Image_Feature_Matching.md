@@ -151,14 +151,8 @@ int main() {
   int i, k;
   float nndr;
 
-  query = imread(
-      "/Users/chu-ingyu/repos/university-study/computer_vision/9_week_dataset/"
-      "assets/"
-      "query.jpg");
-  image = imread(
-      "/Users/chu-ingyu/repos/university-study/computer_vision/9_week_dataset/"
-      "assets/"
-      "input.jpg");
+  query = imread("query.jpg");
+  image = imread("input.jpg");
 
   if (query.empty() || image.empty()) return -1;
 

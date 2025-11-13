@@ -139,3 +139,96 @@ $I(x + \Delta x, y + \Delta y, t + \Delta t) = I(x, y, t)$ 이므로  $\frac{\pa
 
 
 
+---
+
+# Code
+
+
+## CascadeClassifier
+
+```cpp
+CascadeClassifier face_classifier;
+face_classifier.load("haarcascade_frontalface_alt.xml");
+```
+
+### detectMultiScale
+
+```cpp
+void CascadeClassifier::detectMultiScale(
+	InputArray image,
+	vector<Rect>& objects,
+	double scaleFactor = 1.1,
+	int minNeighbors = 3,
+	int flags = 0,
+	Size minSize = Size(),
+	Size maxSize = Size()
+);
+```
+
+- `image`: CV_8U 타입의 그레이스케일 이미지
+- `objects`: 검출된 객체들의 Rect 목록을 저장
+- `scaleFactor`: 이미지 피라미드에서 각 단계마다 이미지를 축소할 비율
+	- `1.1` = 10%씩 축소
+- `minNeighbors`: minNeighbors 개 이상의 겹치는 사각형이 검출된 영역만 객체로 인정한다.
+- `flags`: 구버전 cascade와의 호환성을 위한 플래그 (보통 0)
+- `min/maxSize`: 검출할 객체의 최소/최대 크기
+
+
+
+### Face Detection Example Code
+
+```cpp
+void testCascadeClassifier() {
+  CascadeClassifier face_classifier;
+  Mat frame, grayFrame;
+  vector<Rect> faces;
+
+  VideoCapture cap(0);
+
+  if (!cap.isOpened()) {
+    cout << "Could not open camera" << endl;
+    return;
+  }
+
+  face_classifier.load("haarcascade_frontalface_alt.xml");
+
+  while (true) {
+    cap >> frame;
+
+    cvtColor(frame, grayFrame, COLOR_BGR2GRAY);
+    face_classifier.detectMultiScale(
+        grayFrame, faces,
+        1.1,          // increase search scale by 10% each pass
+        3,            // merge groups of three detections
+        0,            // not used for a new cascade
+        Size(30, 30)  // minimum size for detection
+    );
+    // draw the results
+    for (int i = 0; i < faces.size(); i++) {
+      Point lb(faces[i].x + faces[i].width, faces[i].y + faces[i].height);
+      Point tr(faces[i].x, faces[i].y);
+      rectangle(frame, lb, tr, Scalar(0, 255, 0), 3, 4, 0);
+    }
+    // print the output
+    imshow("Face Detection", frame);
+    if (waitKey(33) == 27) break;  // ESC
+  }
+}
+```
+
+## Tracking using meanShift and camShift
+
+### meanShift / camShift
+
+```cpp
+int meanShift(
+	InputArray probImage,
+	InputOutputArray window,
+	TermCriteria criteria
+)
+```
+
+- `probImage`: 입력 이미지 (`calcBackProject`로 생성된 흑백의 probability map)
+- `window`: 이동된 창의 새 위치
+- `criteria`: 알고리즘의 종료 조건
+
