@@ -36,7 +36,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
 
       - name: Check types and style
         run: npm run check
