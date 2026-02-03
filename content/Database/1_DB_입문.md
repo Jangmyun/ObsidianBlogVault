@@ -1,7 +1,7 @@
 ---
 title: "\b1_데이터베이스_입문"
 description: "DBMS를 통한 간단한 CRUD, SQL 명령어 종류와 데이터 타입\e"
-draft: true
+draft: false
 tags:
   - DB
 ---

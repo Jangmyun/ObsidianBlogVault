@@ -1,7 +1,7 @@
 ---
 title: "\b0_데이터베이스_입문"
 description:
-draft: true
+draft: false
 tags:
   - DB
 ---
