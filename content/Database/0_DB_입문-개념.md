@@ -1,6 +1,6 @@
 ---
-title: "\b0_데이터베이스_입문"
-description:
+title: 0. 데이터베이스 입문 - 개념
+description: DBMS의 정의, 관계형 데이터베이스의 개념과 기본키, 외래 키를 알아보자
 draft: false
 tags:
   - DB
