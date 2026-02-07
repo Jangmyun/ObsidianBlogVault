@@ -1,6 +1,6 @@
 ---
-title: "\b2. 데이터베이스 입문 - DDL"
-description: "\b테이블 생성"
+title: 2. 데이터베이스 입문 - DDL
+description: 테이블 생성
 draft: true
 tags:
   - DB
