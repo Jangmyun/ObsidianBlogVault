@@ -501,4 +501,160 @@ public class TestCollision : MonoBehaviour
 }
 ```
 
-player가 바라보는
+player가 바라보는 방향으로 Raycast 하기 위해  `transform.TransformDirection()` 을 사용
+
+`Raycast` 함수는 기본적으로 hit된 모든 오브젝트가 아니라 가장 처음으로 hit 되는 오브젝트가 된다.
+Ray 상 모든 오브젝트 정보를 알고 싶으면 RaycastAll 을 사용한다.
+
+```cs
+RaycastHit[] hits;
+hits = Physics.RaycastAll(transform.position + Vector3.up, look, 10);
+```
+
+## 투영의 개념
+
+### 마우스 포인터 위치 찾아보기
+
+```cs
+void Update()
+{
+    Debug.Log(Input.mousePosition); // 스크린 좌표
+
+    Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition)); // 뷰포트 좌표
+}
+```
+
+스크린 좌표는 말그대로 스크린 안에서의 좌표이다. 0,0부터 최대 스크린의 width,height 까지 값을 얻을 수 있다.
+
+`Input.mousePosition`을 `Camera.main.ScreenToViewportPoint()` 로 뷰포트 좌표로 변환해 볼 수 있다.
+
+Screen space가 픽셀로 정의된 데에 비해 Viewport space는 최대가 1,1인 정규화된 값을 갖는다.
+
+### 클릭한 곳의 글로벌 좌표 찾아보기
+
+```cs
+ void Update()
+ {
+     //Debug.Log(Input.mousePosition); // 스크린 좌표
+
+     //Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition)); // 뷰포트 좌표
+
+     if (Input.GetMouseButtonDown(0))
+     {
+         Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+         Vector3 dir = mousePos - Camera.main.transform.position;
+         dir = dir.normalized;
+
+         Debug.DrawRay(Camera.main.transform.position, dir, Color.red, 1.0f);
+
+         RaycastHit hit;
+         if (Physics.Raycast(Camera.main.transform.position, dir, out hit))
+         {
+             Debug.Log($"Raycast Camera {hit.collider.gameObject.name}");
+         }
+     }
+ }
+```
+
+번거롭게 마우스 포지션을 월드 좌표로 변환하고, 방향을 알아내고, 해당 방향으로 Ray를 쏴서 어떤 오브젝트가 맞았는지 확인하는 과정이 번거롭다.
+
+`Ray` 를사용하면 이 코드를 획기적으로 줄여준다.
+
+```cs
+ void Update()
+ {
+     //Debug.Log(Input.mousePosition); // 스크린 좌표
+
+     //Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition)); // 뷰포트 좌표
+
+     if (Input.GetMouseButtonDown(0))
+     {
+         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+         Debug.DrawRay(Camera.main.transform.position, ray.direction, Color.red, 1.0f);
+
+         RaycastHit hit;
+         
+         if (Physics.Raycast(ray, out hit, 100))
+         {
+             Debug.Log($"Raycast Camera {hit.collider.gameObject.name}");
+         }
+     }
+ }
+```
+
+## LayerMask
+
+Raycasting의 성능과 최적화에 관하여
+Ray에 부딪히는 오브젝트가 많아짐에 따라 성능 문제가 발생할 수 있다.
+
+**Layer** 기능을 사용하면 필요한 부분만 선택적으로 Ray 연산할 수 있다.
+
+[HardCore in Programming - Physics.Raycast 완벽 가이드](https://kukuta.tistory.com/391)
+
+![[‎Tuesday‎,_‎February‎_‎10‎,_‎2026.png]]
+![[Pasted image 20260210012955.png]]
+
+Builtin 레이어를 포함하여 총 32개의 레이어가 존재한다.
+
+32bit 정수를 `Raycast` 함수의 파라미터로 넘겨줘서 어떤 Layer에 대해 Raycast를 적용할지 정할 수 있다.
+
+```cs
+public static bool Raycast(Ray ray, out RaycastHit hitInfo, float maxDistance, int layerMask);
+```
+
+오버로드된 `Raycast`함수들 중 위 버전을 사용하면 layerMask를 bit 마스킹 한 int 값으로 넘겨줄 수 있다.
+
+```cs
+if (Input.GetMouseButtonDown(0))
+{
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+    Debug.DrawRay(Camera.main.transform.position, ray.direction, Color.red, 1.0f);
+
+    RaycastHit hit;
+
+    int layerMask = 1 << 7; // 7번째 비트 on
+    
+    if (Physics.Raycast(ray, out hit, 100, layerMask))
+    {
+        Debug.Log($"Raycast Camera {hit.collider.gameObject.name}");
+    }
+}
+```
+
+이러면 7번째 레이어만 hit 한다.
+
+반대로 `~(1 << 7)`은 7번째 빼고 모두를 1로 만든다.
+
+`(1 << 7) | (1 << 3)` 은 7번째와 3번째 비트를 1로 만든다.
+
+```cs
+if (Input.GetMouseButtonDown(0))
+{
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+    Debug.DrawRay(Camera.main.transform.position, ray.direction, Color.red, 1.0f);
+
+    RaycastHit hit;
+
+	LayerMask layerMask = LayerMask.GetMask("Monster");
+    
+    if (Physics.Raycast(ray, out hit, 100, layerMask))
+    {
+        Debug.Log($"Raycast Camera {hit.collider.gameObject.name}");
+    }
+}
+
+```
+
+`LayerMask` 라는 객체를 사용하여 설정한 레이어 이름으로 마스크를 가져올 수도 있다.
+
+## Tag
+
+Layer 뿐만 아니라 Tag라는 것도 있는데,
+
+Tag를 이용하여 GameObject를 찾는 기능이 있다.
+
+`GameObject.FindGameObjectWithTag("Monster")` 
+
