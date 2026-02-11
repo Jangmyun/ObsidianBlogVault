@@ -658,3 +658,231 @@ Tag를 이용하여 GameObject를 찾는 기능이 있다.
 
 `GameObject.FindGameObjectWithTag("Monster")` 
 
+
+## Camera
+
+CameraController 를 사용하여 카메라가 플레이어를 따라가도록 해보자
+
+```cs
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+
+
+    [SerializeField] Define.CameraMode _mode = Define.CameraMode.QuaterView; // 카메라 모드
+    [SerializeField] Vector3 _delta; // 카메라와 타겟과의 거리
+    [SerializeField] GameObject _player; // 카메라가 따라다닐 타겟 오브젝트
+
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+		transform.position = _player.transform.position + _delta;
+		transform.LookAt(_player.transform);
+
+    }
+}
+```
+
+private으로 선언한 CameraMode와 delta, 따라다닐 타겟 오브젝트를 `SerializeField` 를 사용해 에디터에서 수정가능하도록 한다.
+
+`Update`함수에서 Camera의 position을 player 위치 + delta로 지정한다.
+
+카메라 각도는 인스펙터창에서 미리 지정해놓아도 되지만
+
+`transform.LookAt()` 으로 특정 객체의 좌표를 주시하도록 할 수 있다.
+
+
+`Update`에다가 카메라 이동 로직을 작성하면 player 이동 로직과 카메라 이동 로직이 Update에서 어떤 것이 먼저 실행되는지 보장할 수 없기 때문에
+캐릭터가 덜덜 떨리는 현상이 발생한다.
+
+`Update`를 `LateUpdate`로 바꾸어주면 떨리는 현상이 없어질 것이다.
+
+```cs
+void LateUpdate()
+{
+    if (_mode == Define.CameraMode.QuaterView)
+    {
+        transform.position = _player.transform.position + _delta;
+        transform.LookAt(_player.transform);
+    }
+
+}
+```
+
+### 이벤트 함수 실행 순서
+[Execution Order of Event Functions](https://docs.unity3d.com/kr/530/Manual/ExecutionOrder.html)
+
+
+## 마우스 클릭을 통한 캐릭터 이동 구현
+
+`Define` 에 `MouseEvent`를 추가한다.
+
+```cs
+// Define.cs
+using UnityEngine;
+
+public class Define
+{
+    public enum MouseEvent
+    {
+        Press,
+        Click
+    }
+
+    public enum CameraMode
+    {
+        QuaterView,
+    }
+}
+
+```
+
+`INputManager`에 MouseAction을 추가한다.
+
+```cs
+//InputManager.cs
+
+using System;
+using UnityEngine;
+
+public class InputManager
+{
+    public Action KeyAction = null;
+    public Action<Define.MouseEvent> MouseEvent = null;
+
+    public void OnUpdate()
+    {
+
+        if (Input.anyKey && KeyAction != null) KeyAction.Invoke();
+    }
+}
+
+```
+
+```cs
+// PlayerController.cs
+using UnityEngine;
+
+
+
+public class PlayerController : MonoBehaviour
+{
+    public float _speed = 10.0f;
+
+
+
+    void Start()
+    {
+        // 혹시라도 구독 돼있으면 해제하고 다시 등록
+        Managers.Input.KeyAction += OnKeyboard;
+        // Managers의 InputManager에 키보드 이벤트 등록
+        Managers.Input.KeyAction += OnKeyboard;
+
+        // Mouse Event 등록
+        Managers.Input.MouseAction -= OnMouseClicked;
+        Managers.Input.MouseAction += OnMouseClicked;
+
+    }
+
+    void Update()
+    {
+
+       
+    }
+
+    // 인자가 Define.MouseEvent인 Action이므로 파라미터 추가
+    void OnMouseClicked(Define.MouseEvent evt)
+    {
+        if (evt != Define.MouseEvent.Click) return;
+
+        Debug.Log("Mouse Clicked");
+        
+    }
+}
+
+```
+
+`OnMouseClicked` 이벤트 핸들러 함수에 기존 mousePosition으로 클릭한 위치를 받아오면 된다.
+
+```cs
+void OnMouseClicked(Define.MouseEvent evt)
+{
+    if (evt != Define.MouseEvent.Click) return;
+
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+    Debug.DrawRay(Camera.main.transform.position, ray.direction, Color.red, 1.0f);
+
+    RaycastHit hit;
+
+    int layerMask = 1 << 7; // Wall Layer Masking
+
+
+    if (Physics.Raycast(ray, out hit, 100, layerMask: layerMask))
+    {
+        // Debug.Log($"Raycast Camera {hit.collider.gameObject.name}");
+        
+
+    }
+
+}
+```
+
+여기서  Raycast hit 되면 hit 된 WallLayer (바닥) 좌표를 가져오고 DestPost에 저장하고 boolean 값을 flag로 하여 해당 좌표로 이동할 수 있도록 한다.
+
+```cs
+using UnityEngine;
+
+
+
+public class PlayerController : MonoBehaviour
+{
+    public float _speed = 10.0f;
+
+    Vector3 _destPos; // 이동할 목적지 좌표
+    bool _moveToDest = false; // 목적지로 이동 중인지 여부
+
+
+    void Start()
+    {
+        // 혹시라도 구독 돼있으면 해제하고 다시 등록
+        Managers.Input.KeyAction += OnKeyboard;
+        // Managers의 InputManager에 키보드 이벤트 등록
+        Managers.Input.KeyAction += OnKeyboard;
+
+        // Mouse Event 등록
+        Managers.Input.MouseAction -= OnMouseClicked;
+        Managers.Input.MouseAction += OnMouseClicked;
+
+    }
+
+    // 인자가 Define.MouseEvent인 Action이므로 파라미터 추가
+    void OnMouseClicked(Define.MouseEvent evt)
+    {
+        if (evt != Define.MouseEvent.Click) return;
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Debug.DrawRay(Camera.main.transform.position, ray.direction, Color.red, 1.0f);
+
+        RaycastHit hit;
+
+        int layerMask = 1 << 7; // Wall Layer Masking
+
+
+        if (Physics.Raycast(ray, out hit, 100, layerMask: layerMask))
+        {
+            // Debug.Log($"Raycast Camera {hit.collider.gameObject.name}");
+            _destPos = hit.point;
+            _moveToDest = true;
+        }
+
+    }
+}
+
+```
