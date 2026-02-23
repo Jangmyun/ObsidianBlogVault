@@ -17,7 +17,7 @@ const config: QuartzConfig = {
       tagId: "G-FPPHKY5J6F",
     },
     locale: "ko-KR",
-    baseUrl: "jangmyun.github.io/ObsidianBlogVault/",
+    baseUrl: "blog.jangmyun.dev",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
