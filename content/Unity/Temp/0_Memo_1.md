@@ -886,3 +886,62 @@ public class PlayerController : MonoBehaviour
 }
 
 ```
+
+### 마우스 클릭 이동 로직 계속
+
+```cs
+ void Update()
+    {
+        if (_moveToDest)
+        {
+            Vector3 dir = _destPos - transform.position;
+            if (dir.magnitude < 0.001)
+            {
+                _moveToDest = false;
+            }
+            else
+            {
+                transform.position = transform.position + dir.normalized * Time.deltaTime * _speed;
+                transform.LookAt(_destPos);
+            }
+        }
+
+    }
+```
+
+`dir.magnitude` 즉 남은 거리가 0.001 미만이면 도착한것으로 판단
+
+도착하지 않았으면 이동해야 함
+
+`transform.position`을 
+
+```cs
+void Update()
+    {
+        if (_moveToDest)
+        {
+            Vector3 dir = _destPos - transform.position;
+            if (dir.magnitude < 0.001)
+            {
+                _moveToDest = false;
+            }
+            else
+            {
+                float moveDist = Math.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
+                transform.position += dir.normalized * moveDist;
+                transform.LookAt(_destPos);
+            }
+        }
+
+    }
+```
+
+덜덜 거리는 현상을 방지하기 위해 `Math.Clamp` 사용하여 특정 값 미만의 값은 0처리
+
+```cs
+// transform.LookAt(_destPos);
+transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+```
+
+부드럽게 회전하며 원하는 위치로 바라보게 하려면 Quaternion.Slerp를 활용하면 됨
+

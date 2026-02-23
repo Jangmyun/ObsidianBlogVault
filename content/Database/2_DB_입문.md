@@ -80,4 +80,3 @@ CREATE TABLE orders (
 ```
 
 - orders 테이블에서 `customer_id`, `product_id` 은 외래 키 연결을 위한 컬럼이다.
-

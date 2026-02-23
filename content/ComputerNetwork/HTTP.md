@@ -1,10 +1,11 @@
 ---
-title: HTTP (Hypertext Transfer Protocol)
+title: 컴퓨터 네트워크 - HTTP (Hypertext Transfer Protocol)
 description: HTTP란????
 draft: false
 tags:
   - computer_network
   - web
+  - network
 ---
  
 # HTTP (Hypertext Transfer Protocol)
