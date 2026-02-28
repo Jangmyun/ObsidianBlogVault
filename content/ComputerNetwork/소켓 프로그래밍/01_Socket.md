@@ -40,7 +40,9 @@ int socket(int domain, int type, int protocol);
 | `SOCK_RAW`       | 패킷 헤더를 Application Layer에서 직접 만들 수 있음          |
 | `SOCK_SEQPACKET` | `SOCK_STREAM`과 유사하지만 패킷 수신 시 항상 전체를 읽음         |
 `SOCK_STREAM` 은 연결지향형 (TCP), `SOCK_DGRAM` 은 비 연결지향형 (UDP) 라고 생각하면 편할듯 하다.
+
 <br>
+
 `protocol` 파라미터는 소켓이 데이터 전송에 사용하는 프로토콜의 종류를 명시한다.
 
 
@@ -145,6 +147,7 @@ WSAStartup(MAKEWORD(2,2), &wsa);
 ```
 
 <br>
+
 ```cpp
 int WSACleanup();
 ```
@@ -527,7 +530,214 @@ ssize_t recvfrom(int sockfd, char *buf, int len, int flags,
 
 UDP는 TCP와 다르게 연결지향형이 아니므로, 여러 발신자가 하나의 주소와 포트 소켓에 패킷을 보낼 수 있다. 각 데이터그램이 어디서 왔는지 확인하는 용도로 필요하다.
 
+
+<br>
+
+
 ### 자료형 안전성을 보강한 UDP 소켓 클래스
+
+```cpp
+class UDPSocket
+{
+public:
+  ~UDPSocket();
+  int Bind(const SocketAddress& inBindAddress);
+  int SendTo(const void* inData, int inLen, const SocketAddress& inToAddress);
+  int RecvFrom(void* inBuffer, int inLen, SocketAddress& outFromAddress);
+
+private:
+  friend class SocketUtil;
+  UDPSocket(SOCKET inSocket) : mSocket(inSocket) {}
+  SOCKET mSocket;
+};
+
+typedef shared_ptr<UDPSocket> UDPSocketPtr;
+
+int UDPSocket::Bind(const SocketAddress& inBindAddress) {
+  int err = bind(mSocket, &inBindAddress.mSockAddr, inBindAddress.GetSize());
+
+  if (err == 0)
+    return 0;
+
+  SocketUtil::ReportError("UDPSocket::Bind");
+  return SocketUtil::GetLastError();
+}
+
+int UDPSocket::SendTo(const void* inData, int inLen, const SocketAddress& inToAddress) {
+  int byteSendCount = sendto(
+    mSocket,
+    inData,
+    inLen,
+    0,
+    &inToAddress.mSockAddr,
+    inToAddress.GetSize()
+  );
+
+  if (byteSendCount >= 0)
+    return byteSendCount;
+
+
+  // 에러 코드를 음수로 리턴
+  SocketUtil::ReportError("UDPSocket::SendTo");
+  return -SocketUtil::GetLastError();
+}
+
+int UDPSocket::RecvFrom(void* inBuffer, int inLen, SocketAddress& outFromAddress) {
+
+  socklen_t fromLength = outFromAddress.GetSize();
+
+  int readByteCount = recvfrom(
+    mSocket,
+    inBuffer,
+    inLen,
+    0,
+    &outFromAddress.mSockAddr,
+    &fromLength
+  );
+
+  if (readByteCount >= 0)
+    return readByteCount;
+
+  SocketUtil::ReportError("UDPSocket::RecvFrom");
+  return -SocketUtil::GetLastError();
+}
+
+
+UDPSocket::~UDPSocket() {
+  close(mSocket);
+}
+```
+
+
+`SocketAddress` 에서 `UDPSocket`을 `friend` 클래스로 선어해서 `sockaddr` private 멤버변수를 직접 수정할 수 있다.
+
+`~UDPSocket()` 소멸자로 소켓을 자동으로 닫아줄 수 있도록 한다.
+
+`SocketUtil` 클래스를 따로 두어 `UPDSocket` 에서 발생한 오류를 보고하도록 한다. 플랫폼마다 다르게 처리하기 편해진다.
+
+직접 `UDPSocket`을 만들 수 있는 함수가 존재하지 않는데, `UDPSocket` 객체가 있다면 그 `mSocket`은 무조건 열려있음을 보장할 수 있다.
+`SocketUtil` 클래스를 활용해서 소켓 생성을 맡기도록 한다.
+
+```cpp
+// SocketUtil.cpp
+enum SocketAddressFamily {
+  INET = AF_INET,
+  INET6 = AF_INET6
+};
+
+int SocketUtil::GetLastError() {
+  return errno;
+}
+
+void SocketUtil::ReportError(const char* inOperationDesc) {
+  Log::Error(inOperationDesc);
+}
+
+UDPSocketPtr SocketUtil::CreateUDPSocket(SocketAddressFamily inFamily) {
+  SOCKET s = socket(inFamily, SOCK_DGRAM, IPPROTO_UDP);
+  if (s != -1)
+    return UDPSocketPtr(new UDPSocket(s));
+
+  ReportError("SocketUtil::CreateUDPSocket");
+  return nullptr;
+}
+```
+
+## TCP 소켓
+
+UDP는 연결을 유지하지 않으며 신뢰성을 보장하지 않는다. 따라서 하나의 소켓으로 여러 호스트에서 오는 데이터그램을 받을 수 있다.
+TCP는 TCP 연결마다 별개의 소켓을 유지해야 한다.
+
+초기 연결에는 3-way handshaking이 필요하다. `socket()`으로 소켓을 만들고 `bind()` 이후, `listen()`을 통해 소켓으로 들어오는 핸드셰이킹을 리스닝한다.
+
+```cpp
+// Windows
+int listen(SOCKET sock, int backlog);
+
+// Linux
+int listen(int sock, int backlog);
+
+// 성공 시 0, 에러 시 -1
+```
+
+- `backlog`: 연결 요청을 대기시킬 큐의 크기이다.
+	- 윈도우에서는 `SOMAXCONN` (허용 가능한 최대치) 을 기본값으로 한다.
+
+리스닝 소켓은 다른 호스트와 연결되는 게 아니라, 새로 들어오는 연결 요청을 받아 새로운 소켓을 만들어주는 역할만 수행한다.
+
+연결 요청을 승인해서 TCP 핸드셰이킹 과정을 진행하려면 `accept()`를 사용한다.
+
+```cpp
+// Windows
+SOCKET accept(SOCKET sock, sockaddr* addr, int* addrlen);
+
+// Linux
+int accept(int sock, sockaddr* addr, socklen_t* addrlen);
+
+// 성공 시 통신하는 소켓, 에러 시 -1
+```
+
+- `addr`: 연결을 요청하는 호스트의 주소를 채울 `sockaddr` 구조체 포인터
+- `addrlen`: `addr`의 길이
+
+`accept()`가 받아줄 연결 요청이 없는 상태이면 기본적으로 블로킹 상태로 대기한다.
+
+클라이언트 입장에서는 연결 요청을 `listen()` 하고, `accept()` 로 수락할 필요 없이 자기 자신이 서버와의 통신에 사용할 소켓을 만들고 `connect()`만 호출하면 된다.
+
+```cpp
+// Windows
+int connect(SOCKET sock, const sockaddr* addr, int addrlen);
+
+// Linux
+int connect(int sock, const sockaddr* addr, socklen_t addrlen);
+
+// 성공 시 0, 에러 시 -1
+```
+
+- `addr`: 연결하고자 하는 호스트의 주소
+- `addrlen`: `addr`의 길이
+
+`connet()` 호출 시 SYN 패킷을 전송해서 3-way handshaking을 시작한다.
+
+<br>
+
+연결된 TCP 소켓은 remote 호스트의 주소 정보를 가지고 있기 때문에, UDP 처럼 데이터 송수신마다 주소 정보를 넘겨줄 필요가 없다. `sendto()`와 `recvfrom()`대신 `send()`와 `recv()` 함수를 사용한다.
+
+`send()` 함수 시그니처는 아래와 같다.
+
+```cpp
+// Windows
+int send(SOCKET sock, const char* buf, int len, int flags);
+
+// Linux
+ssize_t send(int sock, const void *buf, size_t len, int flags);
+
+// 성공시 데이터 사이즈 리턴, 에러 시 -1 (SOCKET_ERROR) 리턴
+```
+
+UDP와는 다르게 MTU보다 작게 `len`을 잡을 필요 없다.
+
+`flags` 는 데이터 전송을 제어하는 비트 플래그이다. 보통 `0`으로 한다.
+
+`send()` 성공 시 전송한 데이터의 사이즈를 리턴하는데, `len`에 명시한 값보다 작으면, 소켓의 전송 버퍼가 `len`만큼 보내기에 충분하지 않아서 여유 공간만큼만 보냈다는 의미이다.
+
+TCP는 기본적으로 메시지 경계가 없다는 것에 주의하고, `send()`로 보내려고 의도한 데이터가 무조건 전송 완료될 거라고 기대해서는 안된다.
+
+```cpp
+// Windows
+int recv(SOCKET sock, const char* buf, int len, int flags);
+
+// Linux
+ssize_t recv(int sock, void* buf, size_t len, int flags);
+
+// 성공 시 수신한 데이터 사이즈 리턴, 에러 시 -1 리턴
+```
+
+`recv()` 성공 시 수신한 데이터의 사이즈를 리턴하는데, `len`에 명시한 값보다 작거나 같다. 상대편이 `send()`를 보냈을 때 `recv()`로 같은 길이의 데이터를 받는다고 보장할 수 없다.
+
+`len`에 0을 넣어서 `recv`를 호출했을 때 리턴값이 `0`이면 소켓에 읽을 것이 남아 있다는 뜻이다. (표준 동작은 아니긴 함) 
+
+### 자료형 안전성을 보강한 TCP 소켓 클래스
 
 ```cpp
 
