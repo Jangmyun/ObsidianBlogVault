@@ -93,7 +93,7 @@ int main() {
 int* pArr = new int[4]{0, 1, 2, 3};
 ```
 
-### 클래스 멤버 배열을 [생성자 이니셜라이저]([[Member_Initializer_List]]) 로 초기화
+### 클래스 멤버 배열을 [생성자 이니셜라이저](Member_Initializer_List) 로 초기화
 
 ```cpp
 class MyClass {
@@ -103,5 +103,39 @@ class MyClass {
   private:
 	  int mArray[4];
 };
+```
+
+
+---
+
+## 직접 리스트 초기화와 복제 리스트 초기화
+
+- copy list initialization: `T obj = {arg1, arg2, ...}`
+- direct list initialization: `T obj {arg1, arg2, ...}`
+
+
+C++17 이전에는 복제 리스트 / 직접 리스트 초기화 모두 `initializer_list<>` 로 처리했다.
+
+```cpp
+// 복제 리스트 초기화
+auto a = {11};     // initializer_list<int>
+auto b = {11, 22}; // initializer_list<int>
+
+// 직접 리스트 초기화
+auto c {11};     // initializer_list<int>
+auto d {11, 22}; // initializer_list<int>
+```
+
+
+#cpp17 부터는 직접 리스트 초기화에서 `auto`는 값 하나만 추론한다.
+
+```cpp
+// 복제 리스트 초기화
+auto a = {11};     // initializer_list<int>
+auto b = {11, 22}; // initializer_list<int>
+
+// 직접 리스트 초기화
+auto c {11};     // int
+auto d {11, 22}; // 에러: 원소가 많음
 ```
 
