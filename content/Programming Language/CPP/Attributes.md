@@ -14,7 +14,7 @@ tags:
 ## Standard Attributes
 
 ### noreturn
-c++11
+#cpp11
 
 함수의 리턴값이 없음을 나타냄.
 
@@ -41,7 +41,7 @@ int main() {
 
 
 ### carries_dependency
-c++11, deprecated in c++26
+#cpp11, deprecated in c++26
 
 특정 값이 다른 값에 대한 의존성을 전달한다는 것을 컴파일러에게 알려주는 역할
 
@@ -82,7 +82,7 @@ void process_data(Data* ptr [[carries_dependency]]) {
 
 
 ### deprecated
-c++14
+#cpp14
 
 해당 개체가 더 이상 사용되지 않거나, 새로운 버전으로 대체되었음을 알린다.
 
@@ -94,7 +94,7 @@ void new_print() {}
 ```
 
 ### fallthrough
-c++17
+#cpp17
 
 `switch` 문에서 `case`블록 끝에 사용해서 의도적으로 다음 `case`로 제어 흐름을 넘기겠다는 것을 컴파일러에 명시
 
@@ -114,7 +114,7 @@ void handle_error(int errer_code) {
 ```
 
 ### maybe_unused
-c++17
+#cpp17
 
 사용되지 않거나 디버그 목적으로만 사용되는 함수, 변수, 매개변수 등에 대해 명시하여 컴파일러 경고를 내지 않도록 함
 
@@ -134,7 +134,7 @@ int main() {}
 
 
 ### nodiscard
-c++17, \[\[nodiscard("reason")\]\]은 c++20
+#cpp17 , \[\[nodiscard("reason")\]\]은 #cpp20
 
 함수나 enum의 리턴값을 반드시 사용해야 함을 알려준다.
 
@@ -177,7 +177,7 @@ int main() {
 
 
 ### likely, unlikely
-c++20
+#cpp20
 
 주로 `if-else`문에서 어떤 branch가 더 자주 실행될 것인지 컴파일러에게 힌트를 줘서 명령어 재정렬을 통해 성능 향상을 꾀할 수 있는 착한 친구
 
@@ -309,7 +309,7 @@ M1 칩의 **Conditional Branch Predictor**가 분기 예측 실패를 빠르게 
 
 
 ### no_unique_address
-c++20
+#cpp20
 
 빈 클래스 (Empty Class)를 구조체나 클래스의 멤버변수로 넣었을 때 불필요한 메모리 공간을 소비하지 않도록 한다.
 

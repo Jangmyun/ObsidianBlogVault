@@ -740,5 +740,202 @@ ssize_t recv(int sock, void* buf, size_t len, int flags);
 ### 자료형 안전성을 보강한 TCP 소켓 클래스
 
 ```cpp
+// TCPSocket.h , TCPSocket.cpp
+class TCPSocket;
+using TCPSocketPtr = shared_ptr<TCPSocket>;
 
+class TCPSocket {
+
+public:
+  ~TCPSocket();
+  int Connect(const SocketAddress& inAddress);
+  int Bind(const SocketAddress& inToAddress);
+  int Listen(int inBackLog = 32);
+  TCPSocketPtr Accept(SocketAddress& inFromAddress);
+  int Send(const void* inData, int inLen);
+  int Recv(void* inBuffer, int inLen);
+
+private:
+  friend class SocketUtil;
+  TCPSocket(SOCKET inSocket) : mSocket(inSocket) {}
+  SOCKET mSocket;
+};
+
+int TCPSocket::Bind(const SocketAddress& inBindAddress) {
+  int err = bind(mSocket, &inBindAddress.mSockAddr, inBindAddress.GetSize());
+
+  if (err == 0)
+    return 0;
+
+  SocketUtil::ReportError("UDPSocket::Bind");
+  return SocketUtil::GetLastError();
+}
+
+int TCPSocket::Connect(const SocketAddress& inAddress) {
+  int err = connect(mSocket, &inAddress.mSockAddr, inAddress.GetSize());
+  if (err >= 0)
+    return 0; // NO_ERROR;
+
+  SocketUtil::ReportError("TCPSocket::Connect");
+  return -SocketUtil::GetLastError();
+}
+
+int TCPSocket::Listen(int inBackLog) {
+  int err = listen(mSocket, inBackLog);
+  if (err >= 0)
+    return 0;
+
+  SocketUtil::ReportError("TCPSocket::Listen");
+  return -SocketUtil::GetLastError();
+}
+
+TCPSocketPtr TCPSocket::Accept(SocketAddress& inFromAddress) {
+  socklen_t length = inFromAddress.GetSize();
+  SOCKET newSocket = accept(mSocket, &inFromAddress.mSockAddr, &length);
+
+  if (newSocket != -1) // newSocket != INVALID_SOCKET
+    return TCPSocketPtr(new TCPSocket(newSocket));
+
+  SocketUtil::ReportError("TCPSocket::Accept");
+  return nullptr;
+}
+
+int TCPSocket::Send(const void* inData, int inLen) {
+  int bytesSentCount = send(
+    mSocket,
+    static_cast<const void*>(inData),
+    inLen,
+    0
+  );
+
+  if (bytesSentCount >= 0)
+    return bytesSentCount;
+
+  SocketUtil::ReportError("TCPSocket::Send");
+  return -SocketUtil::GetLastError();
+}
+
+int TCPSocket::Recv(void* inBuffer, int inLen) {
+  int bytesReceivedCount = recv(
+    mSocket,
+    static_cast<void*>(inBuffer),
+    inLen,
+    0
+  );
+
+  if (bytesReceivedCount >= 0)
+    return bytesReceivedCount;
+
+  SocketUtil::ReportError("TCPSocket::Recv");
+  return -SocketUtil::GetLastError();
+}
+
+TCPSocket::~TCPSocket() {
+  close(mSocket);
+}
 ```
+
+
+```cpp
+// SocketUtil
+TCPSocketPtr SocketUtil::CreateTCPSocket(SocketAddressFamily inFamily) {
+  SOCKET s = socket(inFamily, SOCK_STREAM, IPPROTO_TCP);
+  if (s != -1)
+    return TCPSocketPtr(new TCPSocket(s));
+
+  ReportError("SocketUtil::CreateTCPSocket");
+  return nullptr;
+}
+```
+
+
+## 블로킹 I/O와 논블로킹 I/O
+
+소켓 관련 함수는 대부분 블로킹 호출이기 때문에 메인스레드에서 소켓으로 패킷을 처리하는 것은 적절하지 않다.
+
+**멀티스레딩**, **논블로킹 I/O**, **`select()`** 를 통해 해결할 수 있다.
+
+### 멀티스레딩
+
+내용 보충 예정
+
+### 논블로킹 I/O
+
+소켓을 논블로킹 모드로 설정하여 블로킹하지 않고 `-1`을 즉시 리턴하도록 만들 수 있다.
+
+에러코드는 `errno`에서 `EAGAIN`, `WSAGetLastError()`에서 `WSAEWOULDBLOCK` 으로 설정된다.
+
+윈도우에서는 `ioctlsocket()`, 리눅스에서는 `fctl()`을 사용한다.
+
+```cpp
+// Windows
+int ioctlsocket(SOCKET sock, long cm, u_long* argp);
+
+// Linux
+#include <fcntl.h>
+int fcntl(int sock, int cmd, ...);
+```
+
+- `ioctlsocket()`
+	- `cmd`: 제어하려는 소켓 파라미터. `FIONBIO`
+	- `argp`: 파라미터에 설정하는 값. 0이면 블로킹 모드, 0이 아니면 논블로킹 모드
+
+- `fctl`의 경우 조금 다르게 사용한다.
+
+```cpp
+int flags = fcntl(mSocket, F_GETFL, 0);
+fcntl(mSocket, F_SETFL, flags | O_NONBLOCK);
+```
+
+먼저 `F_GETFL`로 소켓에 원래 플래그를 가져오고, 거기에 `O_NONBLOCK`을 비트 OR 연산한 후 다시 `F_SETFL`로 덮어씌워야 한다.
+
+
+#### UDPSocket 클래스에 논블로킹 모드 추가
+
+```cpp
+// UDPSocket.cpp
+int UDPSocket::SetNonBlockingMode(bool isShouldBeNonBlocking) {
+  int result;
+#if _WIN32
+  u_long arg = inShouldBeNonBlocking ? 1 : 0;
+  result = ioctlsocket(mSocket, FIONBIO, &arg);
+#else
+  int flags = fcntl(mSocket, F_GETFL, 0);
+  flags = isShouldBeNonBlocking ? (flags | O_NONBLOCK) : (flags | ~O_NONBLOCK);
+  result = fcntl(mSocket, F_SETFL, flags);
+#endif
+
+  if (result != -1) // SOCKET_ERROR
+    return 0;
+
+  SocketUtil::ReportError("UDPSocket::SetNonBlockingMode");
+  return SocketUtil::GetLastError();
+}
+```
+
+### select() 함수
+
+논블로킹 소켓으로 프레임마다 폴링하는 방식은 폴링해야 할 소켓의 수가 많아지면 비효율적이다.
+데이터가 오지 않아도 `recv`를 계속 호출하면서 데이터가 왔는지 확인해야 하고, 소켓이 1000개라면 1000번의 시스템 콜을 발생시키는 꼴이다.
+
+`select()`는 I/O Multiplexing 이라고도 하는데, 관심 소켓을 등록해두고, 그 중 하나 이상에 신호가 오면 그 때 처리하도록 한다.
+
+```cpp
+// Windows
+int select(int nfds, 
+			fd_set* readfds,
+			fd_set* writefds,
+			fd_set* exceptfds,
+			const timeval* timeout
+);
+
+// Linux
+int select(int nfds,
+			fd_set* readfds,
+			fd_set* writefds,
+			fd_set* exceptfds,
+			struct timval* timeout
+);
+```
+
+POSIX 플랫폼에서는 `nfds`에 소켓 식별자 (리눅스에서는 파일 디스크립터의 int값)
