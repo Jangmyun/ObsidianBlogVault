@@ -142,6 +142,9 @@ pip install submodules/simple-knn
 
 ## 2단계: 영상에서 프레임 추출
 
+![[initial_take.gif]]
+영상은 위처럼 물체를 빙글빙글 돌며 촬영하였다.
+
 촬영한 영상에서 프레임을 추출하여 `images` 폴더에 저장한다.
 
 프레임이 너무 많으면 COLMAP 매칭이 오히려 잘 안 되므로 100~300장 정도가 적당하다고 한다.
@@ -151,6 +154,8 @@ mkdir images
 # ffmpeg으로 1초당 2프레임 추출 (영상 길이에 따라 조절)
 ffmpeg -i 영상파일.mp4 -vf fps=2 images/frame_%04d.jpg
 ```
+
+
 
 ## 3단계: COLMAP으로 SfM 실행
 
@@ -412,13 +417,15 @@ python server.py
 
 브라우저에서 `http://localhost:8000` 을 열면 3D로 돌아다니며 결과를 확인할 수 있다.
 
-빈 공간의 노이즈를 제외하면 물체가 3D로 잘 복원된 것을 확인할 수 있다.
+![[splat_viewer.gif]]
+
+빠르게 촬영했기 때문에 다소 노이즈가 발생했으나 물체가 3D로 잘 복원된 것을 확인할 수 있다.
 
 ## 트러블슈팅
 
-| 문제 | 원인 | 해결 |
-|---|---|---|
-| COLMAP 명령어 인식 안 됨 | 환경변수 미등록 | `C:\COLMAP\bin` 을 시스템 Path에 추가 후 Powershell 재시작 |
-| COLMAP matched 이미지 수가 매우 낮음 | matcher가 맞지 않음 | 물체 주변 촬영은 `exhaustive_matcher` 사용 |
-| `.ply` 파일 로드 안 됨 | CORS 정책 | `server.py` 로 CORS 헤더 포함한 로컬 서버 실행 |
-| CUDA 관련 에러 | PyTorch CUDA 버전 불일치 | `cu118` 등 설치된 CUDA 버전에 맞는 PyTorch 설치 |
+| 문제                          | 원인                  | 해결                                              |
+| --------------------------- | ------------------- | ----------------------------------------------- |
+| COLMAP 명령어 인식 안 됨           | 환경변수 미등록            | `C:\COLMAP\bin` 을 시스템 Path에 추가 후 Powershell 재시작 |
+| COLMAP matched 이미지 수가 매우 낮음 | matcher가 맞지 않음      | 물체 주변 촬영은 `exhaustive_matcher` 사용               |
+| `.ply` 파일 로드 안 됨            | CORS 정책             | `server.py` 로 CORS 헤더 포함한 로컬 서버 실행              |
+| CUDA 관련 에러                  | PyTorch CUDA 버전 불일치 | `cu118` 등 설치된 CUDA 버전에 맞는 PyTorch 설치            |
