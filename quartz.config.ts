@@ -9,7 +9,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Jangmyun's Vault",
-    pageTitleSuffix: "",
+    pageTitleSuffix: " · Jangmyun's Vault",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
