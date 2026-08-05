@@ -13,8 +13,8 @@ export default (() => {
     ctx,
   }: QuartzComponentProps) => {
     const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title =
-      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
+    const rawTitle = fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
+    const title = rawTitle + titleSuffix
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??
@@ -35,6 +35,35 @@ export default (() => {
       (e) => e.name === CustomOgImagesEmitterName,
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
+    const articleImagePath = usesCustomOgImage
+      ? `https://${cfg.baseUrl}/${fileData.slug}-og-image.webp`
+      : ogImageDefaultPath
+
+    // Only real content pages (not folder/tag indices, 404, etc.) have dates attached
+    const articleJsonLd = fileData.dates && (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: rawTitle,
+            description,
+            image: articleImagePath,
+            datePublished: (fileData.dates.published ?? fileData.dates.created)?.toISOString(),
+            dateModified: fileData.dates.modified?.toISOString(),
+            author: {
+              "@type": "Organization",
+              name: cfg.pageTitle,
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": socialUrl,
+            },
+          }),
+        }}
+      />
+    )
 
     return (
       <head>
@@ -88,6 +117,7 @@ export default (() => {
         {cfg.googleSiteVerification && (
           <meta name="google-site-verification" content={cfg.googleSiteVerification} />
         )}
+        {articleJsonLd}
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js
