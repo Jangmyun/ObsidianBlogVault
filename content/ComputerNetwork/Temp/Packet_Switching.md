@@ -1,7 +1,7 @@
 ---
 title: "컴퓨터 \b네트워크 - 패킷 스위칭"
 description: Circuit Switching과 비교해 자원을 필요할 때만 사용하는 Packet Switching(패킷 스위칭)의 개념 정리.
-draft: false
+draft: true
 tags:
   - computer_network
   - network
