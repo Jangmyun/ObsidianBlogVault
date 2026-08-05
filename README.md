@@ -1,17 +1,23 @@
-# Quartz v4
+# Jangmyun's Vault
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+개발 공부와 프로젝트 기록을 정리하는 개인 Obsidian 노트 저장소입니다. [Quartz](https://quartz.jzhao.xyz/) 로 빌드되어 정적 사이트로 배포됩니다.
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+🔗 **https://blog.jangmyun.dev**
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## 다루는 주제
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+- Programming Language (C++, C#, PLT)
+- Computer Network / Security / Vision / Graphics
+- Operating System / Database
+- 진행한 프로젝트 기록
 
-## Sponsors
+## 로컬에서 빌드하기
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+```bash
+npm install
+npx quartz build --serve
+```
+
+## 스택
+
+Obsidian 으로 작성한 마크다운 노트(`content/`)를 Quartz 4로 빌드해 Cloudflare Pages에 배포합니다.
