@@ -1,6 +1,6 @@
 ---
 title: "[C++] Inheritance (상속)"
-description:
+description: 상속, virtual 오버라이딩, 업/다운캐스팅, 다중 상속까지 다루는 C++ 상속 정리 노트.
 draft: false
 tags:
   - cpp

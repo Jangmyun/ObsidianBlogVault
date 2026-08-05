@@ -1,6 +1,6 @@
 ---
 title: "[C++] Reference"
-description:
+description: 포인터와의 차이점부터 lvalue 참조자 사용법까지 정리한 C++ 참조자(Reference) 노트.
 draft: false
 tags:
   - cpp

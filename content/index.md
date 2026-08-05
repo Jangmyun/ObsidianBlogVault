@@ -1,5 +1,6 @@
 ---
 title: Jangmyun's Vault
+description: 백엔드·3D·네트워크·시스템 프로그래밍을 공부하며 정리하는 개발 노트와 프로젝트 기록.
 ---
 
 

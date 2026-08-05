@@ -1,6 +1,6 @@
 ---
 title: 01 - 프로젝트 셋업과 스택
-description:
+description: KVM/libvirt 기반 Arch 호스트에 Mininet, Open vSwitch, ONOS로 SDN 실험 환경을 구축한 과정 기록.
 draft: false
 tags:
   - Project

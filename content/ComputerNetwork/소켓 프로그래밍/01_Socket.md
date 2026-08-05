@@ -1,6 +1,6 @@
 ---
 title: 소켓 프로그래밍 - 버클리 소켓
-description:
+description: socket() 생성부터 Address Family, 소켓 옵션까지 정리한 버클리 소켓(Berkeley Socket) API 노트.
 draft: false
 tags:
   - computer_network
