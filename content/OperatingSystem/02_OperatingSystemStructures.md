@@ -51,7 +51,7 @@ privileged instruction 허용
 
 ![[Screenshot 2025-04-10 at 22.24.31.png]]
 
-## [[01_Introduction#Interrupt Handling]] 
+## Interrupt Handling
 
 
 ## Parameter Passing in System Call
