@@ -18,6 +18,7 @@ const config: QuartzConfig = {
     },
     locale: "ko-KR",
     baseUrl: "blog.jangmyun.dev",
+    googleSiteVerification: "k9YUls26BGSlAciz2ZURGIORsRLOnPu7jY-spEU0CMs",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
