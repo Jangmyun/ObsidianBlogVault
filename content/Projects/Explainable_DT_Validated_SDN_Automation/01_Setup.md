@@ -272,7 +272,7 @@ pingall
 0% dropped
 ```
 
-![[Pasted image 20260701002920.png]]
+![Pasted image 20260701002920](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020260701002920.png)
 
 ---
 

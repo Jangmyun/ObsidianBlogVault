@@ -14,11 +14,11 @@ tags:
 
 input 영상의 각 픽셀의 intensity 값을 수학적 표현을 통해 해당하는 intensity 값으로 매핑하는 과정
 
-![[Screenshot 2025-09-11 at 00.21.39.png]]
+![Screenshot 2025-09-11 at 00.21.39](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2000.21.39.png)
 
 ### Example of intensity transformation
 
-![[Screenshot 2025-09-11 at 01.05.34.png]]
+![Screenshot 2025-09-11 at 01.05.34](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.05.34.png)
 
 ### Image negatives
 
@@ -30,7 +30,7 @@ $s=L−1−r$
 
 어두운 배경에 포함된 흰색, 회색의 디테일을 강조하는 데 유용하다
 
-![[Screenshot 2025-09-11 at 01.09.49.png]]
+![Screenshot 2025-09-11 at 01.09.49](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.09.49.png)
 
 ### Log transformation
 
@@ -45,7 +45,7 @@ $s=clog(1+r)$
 **어두운 영역의 대비를 향상시킨다**
 
 
-![[Screenshot 2025-09-11 at 01.16.14.png]]
+![Screenshot 2025-09-11 at 01.16.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.16.14.png)
 
 ### Power-Law (Gamma) Transformation
 
@@ -55,11 +55,11 @@ $s=cr^γ$
 
 
 
-![[Screenshot 2025-09-11 at 01.22.05.png]]
+![Screenshot 2025-09-11 at 01.22.05](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.22.05.png)
 
 `gamma` 값에 따라 이미지의 어두운 픽셀의 범위가 확장되거나 그 반대가 된다.
 
-![[Screenshot 2025-09-11 at 01.24.01.png]]
+![Screenshot 2025-09-11 at 01.24.01](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.24.01.png)
 
 Gamma를 1보다 작은 값으로 설정하는 것이 input 이미지가 밝아지는 것이 아니라, 어두운 영역의 디테일을 증가시키는 것이다
 
@@ -67,15 +67,15 @@ Gamma를 1보다 작은 값으로 설정하는 것이 input 이미지가 밝아�
 
 transformation 함수를 더 복잡하게 구성할 수 있다.
 
-![[Screenshot 2025-09-11 at 01.30.57.png]]
+![Screenshot 2025-09-11 at 01.30.57](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.30.57.png)
 
 **Thresholding** (임계값)을 기준으로 두개의 선형 구간을 나누어 흑백으로만 구분할 수도 있다.
 
-![[Screenshot 2025-09-11 at 01.28.53.png]]
+![Screenshot 2025-09-11 at 01.28.53](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.28.53.png)
 
 ### Example Results
 
-![[Screenshot 2025-09-11 at 01.36.03.png]]
+![Screenshot 2025-09-11 at 01.36.03](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2001.36.03.png)
 
 
 ---
@@ -197,7 +197,7 @@ void image_negative() {
 
 반복문으로 각 `row`와 `col`을 순회하며 `at` 연산자를 실행하여 깊은 복사를 시행한 `Mat` 객체의 값을 바꿔준다.
 
-![[Screenshot 2025-09-11 at 02.57.53.png]]
+![Screenshot 2025-09-11 at 02.57.53](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2002.57.53.png)
 
 
 
@@ -229,7 +229,7 @@ void log_transformation() {
 }
 ```
 
-![[Screenshot 2025-09-11 at 03.07.35.png]]
+![Screenshot 2025-09-11 at 03.07.35](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.07.35.png)
 
 #### Gamme Correction
 
@@ -272,7 +272,7 @@ void gamma_correction() {
 `saturate_cast<uchar>` 로 정수형으로 변환한다.
 
 
-![[Screenshot 2025-09-11 at 03.24.14.png]]
+![Screenshot 2025-09-11 at 03.24.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.24.14.png)
 
 ## Spatial Filtering
 
@@ -280,11 +280,11 @@ void gamma_correction() {
 
 이때 사용되는 필터를 spaital mask, kernel, template, window 등으로 부른다
 
-![[Screenshot 2025-09-11 at 03.28.24.png]]![[Screenshot 2025-09-11 at 03.28.43.png]]
+![Screenshot 2025-09-11 at 03.28.24](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.28.24.png)![Screenshot 2025-09-11 at 03.28.43](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.28.43.png)
 
 #### example
 
-![[Screenshot 2025-09-11 at 03.34.51.png]]
+![Screenshot 2025-09-11 at 03.34.51](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.34.51.png)
 
 빨간색, 파란색, 초록색 픽셀에 대해 우측 행렬을 통해 spatial filtering을 적용했을 때 값은 아래와 같다.
 
@@ -296,14 +296,14 @@ void gamma_correction() {
 
 random noise를 감소시키지만 이미지를 흐릿하게 만든다 (blur)
 
-![[Screenshot 2025-09-11 at 03.42.13.png]]
+![Screenshot 2025-09-11 at 03.42.13](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.42.13.png)
 
 
 ### Gaussian filter
 
 Gaussian function을 사용해 영상을 부드럽게 만드는 필터
 
-![[Screenshot 2025-09-11 at 03.44.12.png]]
+![Screenshot 2025-09-11 at 03.44.12](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.44.12.png)
 
 ### Mask Size
 
@@ -313,7 +313,7 @@ spatial filtering을 적용할 때 mask 의 사이즈는 중요하다.
 
 mask 사이즈가 커질수록 연산 비용이 증가한다.
 
-![[Screenshot 2025-09-11 at 03.47.38.png]]
+![Screenshot 2025-09-11 at 03.47.38](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.47.38.png)
 
 
 ### Sharpening
@@ -322,11 +322,11 @@ sharpening은 영상의 **intensity 변화를 강조**한다.
 
 **Spatial differentiation (공간 미분)**을 통해 수행한다.
 
-![[Screenshot 2025-09-11 at 03.48.12.png]]
+![Screenshot 2025-09-11 at 03.48.12](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.48.12.png)
 
 Sharpening은 영상의 intensity 변화를 측정한다고 했다.
 
-![[Screenshot 2025-09-11 at 03.52.12.png]]
+![Screenshot 2025-09-11 at 03.52.12](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.52.12.png)
 
 **second derivative (2차 미분)**을 이용해 강도가 급격하게 변하는 edge, line 부분을 찾아낸다.
 
@@ -336,11 +336,11 @@ Sharpening 의 과정은 다음과 같다
 2. second derivative 값을 input 이미지에 더하기
 
 
-![[Screenshot 2025-09-11 at 03.57.40.png]]
+![Screenshot 2025-09-11 at 03.57.40](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.57.40.png)
 
 #### sharpening using unsharp masking
 
-![[Screenshot 2025-09-11 at 03.59.25.png]]
+![Screenshot 2025-09-11 at 03.59.25](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2003.59.25.png)
 
 ### Median filter
 
@@ -350,4 +350,4 @@ Sharpening 의 과정은 다음과 같다
 
 마스크 영역 내의 모든 픽셀 값을 크기 순으로 정렬하고 중앙값으로 중심 픽셀의 값을 대체한다.
 
-![[Screenshot 2025-09-11 at 04.03.14.png]]
+![Screenshot 2025-09-11 at 04.03.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-11%20at%2004.03.14.png)

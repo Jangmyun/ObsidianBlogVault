@@ -19,7 +19,7 @@ $$h(r_k) = n_k$$
 	- $L = 2^8 = 256$
 
 
-![[Screenshot 2025-09-17 at 22.20.45.png]]
+![Screenshot 2025-09-17 at 22.20.45](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-17%20at%2022.20.45.png)
 
 ### Cumulative histogram
 
@@ -31,7 +31,7 @@ $$h(r_k) = n_k$$
 
 ### Histogram 예제
 
-![[Screenshot 2025-09-17 at 22.38.26.png]]
+![Screenshot 2025-09-17 at 22.38.26](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-17%20at%2022.38.26.png)
 
 - Intensity level = 16 \[0,15\]
 - Number of bins = 4
@@ -46,7 +46,7 @@ $$h(r_k) = n_k$$
 
 픽셀 값의 분포를 조정하여 이미지의 대비를 조절
 
-![[Screenshot 2025-09-18 at 00.36.47.png]]
+![Screenshot 2025-09-18 at 00.36.47](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-18%20at%2000.36.47.png)
 
 #### 1. Histogram Computation
 

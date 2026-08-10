@@ -44,7 +44,7 @@ def interp(expr: Expr): Int = expr match {
 
 
 
-![[Screenshot 2025-09-13 at 00.43.51.png]]
+![Screenshot 2025-09-13 at 00.43.51](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-13%20at%2000.43.51.png)
 
 Concrete Syntax가 달라도 같은 Abstract syntax로 변환될 수도 있다.
 
@@ -96,7 +96,7 @@ Sub(Num(5), Num(1), Num(2)) ???
 
 ### BIg Picture (modeling languages)
 
-![[Screenshot 2025-09-13 at 01.14.10.png]]
+![Screenshot 2025-09-13 at 01.14.10](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-13%20at%2001.14.10.png)
 
 parser는 concrete를 abstract syntax로 변환하고, 인터프리터는 abstract syntax를 interpret(해석)하고, 실행한다.
 

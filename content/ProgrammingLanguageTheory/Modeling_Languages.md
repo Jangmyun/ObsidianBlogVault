@@ -7,7 +7,7 @@ tags:
   - programming_language
 ---
  
-![[Screenshot 2025-09-12 at 21.08.03.png]]
+![Screenshot 2025-09-12 at 21.08.03](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-12%20at%2021.08.03.png)
 
 ### Interpreter vs. Compiler
 #### Interpreter
@@ -38,7 +38,7 @@ source code를 다른 언어로 변환하는 프로그램
 
 #### Abstract Syntax
 
-![[Screenshot 2025-09-12 at 21.18.47.png]]
+![Screenshot 2025-09-12 at 21.18.47](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-12%20at%2021.18.47.png)
 
 ### Semantics (의미론)
 
@@ -64,7 +64,7 @@ source code를 다른 언어로 변환하는 프로그램
 
 ### **BNF** (Backus-Naur Form)
 
- ![[Screenshot 2025-09-12 at 21.28.46.png]]
+ ![Screenshot 2025-09-12 at 21.28.46](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-12%20at%2021.28.46.png)
 
 - **`expr`: Non-terminal** - 문법 규칙에  따라 다른 형태로 바뀔 수 있는
 - **`::=`**: 왼쪽의 non-terminal 기호가 오른쪽 규칙으로 정의될 수 있음

@@ -20,7 +20,7 @@ Process Communication 방법
 - **Shared memory** (confliction  발생 가능)
 
 Producer-consumer problem
-![[Screenshot 2025-05-29 at 02.25.30.png]]
+![Screenshot 2025-05-29 at 02.25.30](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-05-29%20at%2002.25.30.png)
 
 ## Concurrent Access of Shared Data
 공유 데이터에 동시에 접근했을 때 문제
@@ -80,7 +80,7 @@ critical section에 진입 허가를 요청하는 코드 섹션
 #### Exit section
 critical section을 떠났음을 알리는 코드 섹션
 
-![[Pasted image 20250603232829.png]]
+![Pasted image 20250603232829](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250603232829.png)
 
 ### Requirements of Critical-Section Problem
 
@@ -369,7 +369,7 @@ while(true) {
 ### Bounded Waiting Mutual Exclusion
 
 N 개의 프로세스를 위한 Bounded waiting
-![[Screenshot 2025-06-10 at 22.22.12.png]]
+![Screenshot 2025-06-10 at 22.22.12](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-06-10%20at%2022.22.12.png)
 P0, P1, P3, P5는 critical section에 진입하기를 원하는 상황에서 Bounded waiting을 보장
 
 `boolean lock;`
@@ -434,7 +434,7 @@ while(true) {
 }
 ```
 
-![[Screenshot 2025-06-10 at 22.34.44.png]]
+![Screenshot 2025-06-10 at 22.34.44](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-06-10%20at%2022.34.44.png)
 
 ### Atomic Variables
 int나 bool같은 기본 데이터 타입에 **atomic operation**을 제공

@@ -592,8 +592,8 @@ Ray에 부딪히는 오브젝트가 많아짐에 따라 성능 문제가 발생�
 
 [HardCore in Programming - Physics.Raycast 완벽 가이드](https://kukuta.tistory.com/391)
 
-![[‎Tuesday‎,_‎February‎_‎10‎,_‎2026.png]]
-![[Pasted image 20260210012955.png]]
+![‎Tuesday‎,_‎February‎_‎10‎,_‎2026](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=%E2%80%8ETuesday%E2%80%8E%2C_%E2%80%8EFebruary%E2%80%8E_%E2%80%8E10%E2%80%8E%2C_%E2%80%8E2026.png)
+![Pasted image 20260210012955](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020260210012955.png)
 
 Builtin 레이어를 포함하여 총 32개의 레이어가 존재한다.
 

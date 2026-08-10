@@ -54,7 +54,7 @@ OTP 생성기, USB 보안 키, 여권 등
 
 평문 (clear-text)로 데이터베이스에 비밀번호 저장
 
-![[Screenshot 2025-09-15 at 22.33.59.png]]
+![Screenshot 2025-09-15 at 22.33.59](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-15%20at%2022.33.59.png)
 
 비밀번호가 데이터베이스에 그대로 노출됨
 
@@ -154,17 +154,17 @@ DB에 저장할 때
 
 Dictionary attack에 취약 -> Salting 사용
 
-![[Screenshot 2025-09-16 at 00.56.03.png]]
+![Screenshot 2025-09-16 at 00.56.03](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-16%20at%2000.56.03.png)
 
 ### Salting
 
 임의의 랜덤값을 추가하여 해시
 
-![[Screenshot 2025-09-16 at 01.13.34.png]]
+![Screenshot 2025-09-16 at 01.13.34](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-16%20at%2001.13.34.png)
 
 ### Linux Password File
 
-![[Screenshot 2025-09-16 at 01.14.01.png]]
+![Screenshot 2025-09-16 at 01.14.01](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-16%20at%2001.14.01.png)
 
 ## Authentication Token
 
@@ -214,11 +214,11 @@ OTP, 2FA 등
 
 해시함수를 이용하여 비밀번호를 순차적으로 업데이트
 
-![[Screenshot 2025-09-16 at 02.09.30.png]]
+![Screenshot 2025-09-16 at 02.09.30](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-16%20at%2002.09.30.png)
 
 공격자가 중간에 비밀번호를 가로채도 해시함수의 단방향성 때문에 이전 비밀번호를 계산할 수 없음
 
-![[Screenshot 2025-09-16 at 02.10.35.png]]
+![Screenshot 2025-09-16 at 02.10.35](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-16%20at%2002.10.35.png)
 
 ### Challenge-Response
 

@@ -23,7 +23,7 @@ tags:
 4. 색상: 어떤 색인지, 보는 시점에 따라 색이 어떻게 달라지는지
 
 
-![[Pasted image 20260430004213.png]]
+![Pasted image 20260430004213](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020260430004213.png)
 위는 3D Gaussian Splatting 과정이다.
 
 ### SfM (Structure from Motion)Points 
@@ -142,7 +142,7 @@ pip install submodules/simple-knn
 
 ## 2단계: 영상에서 프레임 추출
 
-![[initial_take.gif]]
+![initial_take](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=initial_take.gif)
 영상은 위처럼 물체를 빙글빙글 돌며 촬영하였다.
 
 촬영한 영상에서 프레임을 추출하여 `images` 폴더에 저장한다.
@@ -417,7 +417,7 @@ python server.py
 
 브라우저에서 `http://localhost:8000` 을 열면 3D로 돌아다니며 결과를 확인할 수 있다.
 
-![[splat_viewer.gif]]
+![splat_viewer](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=splat_viewer.gif)
 
 빠르게 촬영했기 때문에 다소 노이즈가 발생했으나 물체가 3D로 잘 복원된 것을 확인할 수 있다.
 
