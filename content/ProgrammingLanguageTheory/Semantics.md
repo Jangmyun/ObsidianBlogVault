@@ -90,7 +90,7 @@ $$
 $$
 $4 + (2 - 1) \in A$ 의  증명은 다음과 같다.
 
-![Pasted image 20250921175221](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250921175221.png)
+![Pasted image 20250921175221](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250921175221.png)
 
 
 

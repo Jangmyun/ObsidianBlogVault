@@ -30,13 +30,13 @@ oFast detector + r-BRIEF descriptor
 
 N개 이상의 연속된 픽셀의 intensity가 중앙 픽셀의 강도보다 높거나 낮을 때 코너로 판별한다.
 
-![Pasted image 20251114010611](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020251114010611.png)
+![Pasted image 20251114010611](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020251114010611.png)
 
 ### BRIEF
 
 binary intensity test set 으로부터 구성된 이미지 패치의 **bit string descriptor**
 
-![Pasted image 20251114011215](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020251114011215.png)
+![Pasted image 20251114011215](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020251114011215.png)
 
 feature 점 주변에 무작위 픽셀 x, y 쌍을 선택해서 두 픽셀의 intensity를 비교해서 x가 y보다 작으면 1 아니면 0
 
@@ -65,7 +65,7 @@ NNDR이 0에 가까울수록 (가장 좋은 매칭이 두번째로 좋은 매칭
 
 ## Convolutional Neural Network (CNN)
 
-![Pasted image 20251114014914](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020251114014914.png)
+![Pasted image 20251114014914](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020251114014914.png)
 
 ### Convolution
 
@@ -73,13 +73,13 @@ spatial filtering과 비슷하게 커널을 연산하면 된다.
 
 이때 **Stride** 는 커널이  input image를 지나갈 때 한번에 몇 픽셀씩 건너뛸지를 결정한다.
 
-![Pasted image 20251114014941](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020251114014941.png)
+![Pasted image 20251114014941](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020251114014941.png)
 
 아래 예시처럼 4x4 결과를 가지기 위해 input 이미지에 **padding**을 붙일 수 있다.
 
 ### Relu
 
-![Pasted image 20251114021134](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020251114021134.png)
+![Pasted image 20251114021134](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020251114021134.png)
 
 일종의 non-linear (비선형) 함수로,
 
@@ -91,7 +91,7 @@ CNN의 계산 결과가 양수일때만 통과시키고 음수일때는 통과�
 
 [[#Convolution]] 연산을 통과한 Feature map의 크기를 줄이는 과정 (다운 샘플링)
 
-![Pasted image 20251114021735](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020251114021735.png)
+![Pasted image 20251114021735](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020251114021735.png)
 
 위 예시는 Max Pooling 과정으로, 2x2 filter 필터를 사용하여 해당 영역에서 가장 큰 값을 선택한다.
 

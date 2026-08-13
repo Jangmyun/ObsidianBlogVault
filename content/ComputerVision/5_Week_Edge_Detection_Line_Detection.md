@@ -13,7 +13,7 @@ tags:
 - Edge pixel - 이미지의 Intensity가 급격하게 변화하는 지점에 있는 픽셀
 - Edge - Edge pixel의 집합
 
-![Screenshot 2025-10-03 at 14.56.40](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2014.56.40.png)
+![Screenshot 2025-10-03 at 14.56.40](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2014.56.40.png)
 
 ### How to detect edges?
 
@@ -21,7 +21,7 @@ tags:
 
 **1차 미분 (first derivative)** 의 크기를 사용하여 edge를 감지
 
-![Screenshot 2025-10-03 at 15.06.21](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2015.06.21.png)
+![Screenshot 2025-10-03 at 15.06.21](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2015.06.21.png)
 
 
 #### 2D
@@ -54,14 +54,14 @@ Gradient Vector의 방향은 Edge Direction과 수직인 관계이다.
 
 
 
-![Screenshot 2025-10-03 at 15.35.15](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2015.35.15.png)
+![Screenshot 2025-10-03 at 15.35.15](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2015.35.15.png)
 
 
 ### Edge Detection 시 노이즈의 영향
 
 이미지에 노이즈가 있으면 edge detection 시 잘못된 결과가 나올 수 있으므로 median filtering이나 average filtering으로 이미지 smoothing하는 과정이 필요
 
-![Screenshot 2025-10-03 at 15.41.20](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2015.41.20.png)
+![Screenshot 2025-10-03 at 15.41.20](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2015.41.20.png)
 
 
 ### Sobel operator
@@ -73,7 +73,7 @@ $$g_x = \frac{\partial f(x, y)}{\partial x} \approx f(x + 1, y) - f(x, y)$$ $$g_
 
 단순 차분 연산에 가중치를 줘 수평,수직 방향 edge를 검출한다.
 
-![Screenshot 2025-10-03 at 16.14.57](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2016.14.57.png)
+![Screenshot 2025-10-03 at 16.14.57](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2016.14.57.png)
 
 $$M(x, y) = \text{mag}(\nabla f) = \sqrt{g_x^2 + g_y^2} \approx |g_x| + |g_y|$$
 
@@ -81,8 +81,8 @@ $$M(x, y) = \text{mag}(\nabla f) = \sqrt{g_x^2 + g_y^2} \approx |g_x| + |g_y|$$
 
 아래는 각각 gradient 연산자만 적용, 5x5 avg 필터링 이후에 적용한 결과이다.
 
-![Screenshot 2025-10-03 at 16.19.44](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2016.19.44.png)
-![Screenshot 2025-10-03 at 16.19.56](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2016.19.56.png)
+![Screenshot 2025-10-03 at 16.19.44](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2016.19.44.png)
+![Screenshot 2025-10-03 at 16.19.56](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2016.19.56.png)
 
 
 ### Canny Edge Detector
@@ -115,7 +115,7 @@ b = -ax + y
 $$
 이러면 $(x,y)$ 가 고정된 값일 때 이 픽셀을 통과하는 모든 가능한 직선의 매개변수 조합을 찾을 수 있다.
 
-![Screenshot 2025-10-03 at 19.07.16](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2019.07.16.png)
+![Screenshot 2025-10-03 at 19.07.16](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2019.07.16.png)
 
 근데 카르테시안 좌표계를 사용하면 수직선의 경우 기울기 a 가 무한대 $\infty$  가 되는 문제가 있음
 
@@ -124,7 +124,7 @@ $$
 $$
 x \cos\theta + y\sin\theta = p
 $$
-![Screenshot 2025-10-03 at 20.52.56](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2020.52.56.png)
+![Screenshot 2025-10-03 at 20.52.56](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2020.52.56.png)
 
 
 #### 알고리즘
@@ -133,7 +133,7 @@ $$
 2. $p\theta$  공간 분할
 3. accumulator (누적기) 셀의 개수를 조사해서 픽셀이 많이 모여있는 곳을 찾는다.
 
-![Screenshot 2025-10-03 at 21.05.23](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-03%20at%2021.05.23.png)
+![Screenshot 2025-10-03 at 21.05.23](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-03%20at%2021.05.23.png)
 
 
 #### Circle detection

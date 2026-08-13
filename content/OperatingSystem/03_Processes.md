@@ -43,11 +43,11 @@ time
 - **Waiting**: 이벤트가 발생하기를 기다림
 - Terminated
 
-![Screenshot 2025-04-12 at 13.52.21](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.52.21.png)
+![Screenshot 2025-04-12 at 13.52.21](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.52.21.png)
 
 ## Ready / Running State
 
-![Screenshot 2025-04-12 at 13.59.13](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.59.13.png)
+![Screenshot 2025-04-12 at 13.59.13](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.59.13.png)
 
 running중인 프로세스는 time-slice 이 만료됐을 때 다시 Ready상태로 돌아가고, **Ready Queue**에 있는 높은 우선순위의 프로세스가 Running 상태로 바뀜
 
@@ -132,7 +132,7 @@ struct task_struct {
 
 ## Queueing Diagram
 
-![Screenshot 2025-04-12 at 15.00.58](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.00.58.png)
+![Screenshot 2025-04-12 at 15.00.58](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.00.58.png)
 
 - **Ready queue**
 	- 프로세스가 CPU 할당받을 준비가 완료된 상태로 대기
@@ -150,12 +150,12 @@ struct task_struct {
 - Long-term scheduler (**Job scheduler**)
 - Short-term scheduler (**CPU scheduler**)
 
-![Screenshot 2025-04-12 at 15.07.04](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.07.04.png)
+![Screenshot 2025-04-12 at 15.07.04](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.07.04.png)
 ### Short-term scheduler (**CPU scheduler**)
 
 Ready queue에 있는 프로세스 중 다음에 CPU를 할당할 프로세스를 선택 (메모리 영역에서)
 
-![Screenshot 2025-04-12 at 15.07.36](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.07.36.png)
+![Screenshot 2025-04-12 at 15.07.36](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.07.36.png)
 
 - `10-100ms`마다 자주 실행됨
 - 스케줄링 시간은 매우 짧음
@@ -194,7 +194,7 @@ Long-term scheduler가 I/O bound와 CPU bound 프로세스를 잘 섞으면, CPU
 
 메모리에서 프로세스를 제거해서 **degree of multiprogramming**을 줄인다.
 
-![Screenshot 2025-04-12 at 15.41.27](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.41.27.png)
+![Screenshot 2025-04-12 at 15.41.27](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.41.27.png)
 
 - `swap out`: 메모리에 있는 프로세스 일부를 일시적으로 디스크(보조기억장치)로 보낸다.
 - `swap in`: swap out된 프로세스를 다시 메모리로 로드한다.
@@ -204,7 +204,7 @@ Long-term scheduler가 I/O bound와 CPU bound 프로세스를 잘 섞으면, CPU
 실행중인 프로세스를 switch하려면 **context switch**가 필요하다
 - 현재 프로세스의 context를 저장 (**PCB**)
 - 다음 프로세스의 context를 복원
-![Screenshot 2025-04-12 at 15.53.12](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.53.12.png)
+![Screenshot 2025-04-12 at 15.53.12](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2015.53.12.png)
 
 ### Context switch
 
@@ -230,7 +230,7 @@ Long-term scheduler가 I/O bound와 CPU bound 프로세스를 잘 섞으면, CPU
 - Multiple set of register for fast switching
 	- 고급 CPU 아키텍쳐는 여러개의 레지스터 세트를 내장하고, 레지스터 내용을 저장하고 로드하는 대신 다른 레지스터 세트로 전환
 
-![Screenshot 2025-04-12 at 16.09.21](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.09.21.png)
+![Screenshot 2025-04-12 at 16.09.21](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.09.21.png)
 
 
 
@@ -241,18 +241,18 @@ Long-term scheduler가 I/O bound와 CPU bound 프로세스를 잘 섞으면, CPU
 ### Create-process system call
 
 프로세스를 생성하고 **pid**를 할당한다 `fork()`
-![Screenshot 2025-04-12 at 16.20.06](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.20.06.png)
+![Screenshot 2025-04-12 at 16.20.06](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.20.06.png)
 
 ### Process tree
 parent-child relation between processes
 
-![Screenshot 2025-04-12 at 16.20.47](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.20.47.png)
+![Screenshot 2025-04-12 at 16.20.47](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.20.47.png)
 
 parent가 child를 생성하고 자기자신을 terminate하면 끊어진 orphan process에 대해서 pid 1번의 자식 프로세스로 붙여짐
 ### Process Creation in UNIX
 [[02_OperatingSystemStructures#`fork()`, `exec()`, `wait()`]]
-![Screenshot 2025-04-12 at 16.23.36](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.23.36.png)
-![Screenshot 2025-04-12 at 16.23.47](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.23.47.png)
+![Screenshot 2025-04-12 at 16.23.36](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.23.36.png)
+![Screenshot 2025-04-12 at 16.23.47](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.23.47.png)
 - `execlp("/bin/ls", "ls", NULL);`
 	- `"/bin/ls"`: 프로그램 위치
 	- `"ls"`: `argv[0]`
@@ -284,7 +284,7 @@ int main() {
 }
 ```
 
-![Screenshot 2025-04-12 at 16.28.07](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.28.07.png)
+![Screenshot 2025-04-12 at 16.28.07](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.28.07.png)
 
 ## More About `fork()`, `exec()`, `wait()`
 
@@ -297,12 +297,12 @@ int main() {
 - Files
 	- `fork()`전에 열린 파일은 부모와 공유, `fork()`이후에 열린 파일은 공유되지 않음
 
-![Screenshot 2025-04-12 at 16.47.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.47.14.png)
+![Screenshot 2025-04-12 at 16.47.14](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.47.14.png)
 
 ### exec()
 [[02_OperatingSystemStructures#`exec()`]]
 
-![Screenshot 2025-04-12 at 16.48.21](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.48.21.png)
+![Screenshot 2025-04-12 at 16.48.21](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2016.48.21.png)
 
 ### wait()
 
@@ -353,7 +353,7 @@ int main() {
 ### IPC models
 - Message passing model
 - Shared-memory model
-![Screenshot 2025-04-12 at 19.35.38](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2019.35.38.png)
+![Screenshot 2025-04-12 at 19.35.38](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2019.35.38.png)
 
 
 ## Shared Memory System
@@ -370,9 +370,9 @@ int main() {
 
 Producer와 Consumer는 shared memory를 통해 정보를 통신
 
-![Screenshot 2025-04-12 at 19.55.41](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2019.55.41.png)
+![Screenshot 2025-04-12 at 19.55.41](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2019.55.41.png)
 
-![Screenshot 2025-04-12 at 19.56.03](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2019.56.03.png)
+![Screenshot 2025-04-12 at 19.56.03](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2019.56.03.png)
 
 ### Two types of buffer
 

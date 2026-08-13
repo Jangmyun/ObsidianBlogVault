@@ -12,7 +12,7 @@ tags:
 클러스터링된 옥트리 (octree) 구조로 데이터를 저장하는 LAZ 1.4 파일이다.
 옥트리 구조를 기술하는 VLR (Variable Length Record) 를 포함하고, 실제 데이터는 LAZ 1.4 청크 형태로 저장된다.
 
-![Pasted image 20260623182038](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020260623182038.png)
+![Pasted image 20260623182038](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020260623182038.png)
 
 ## Octree
 

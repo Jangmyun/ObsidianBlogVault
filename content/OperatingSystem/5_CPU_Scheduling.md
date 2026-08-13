@@ -13,7 +13,7 @@ The rest of your content lives here. You can use **Markdown** here :) # CPU Sche
 ### Motivation
 멀티프로그래밍, 멀티태스킹 상황에서 **CPU utilization**을 극대화
 
-![Screenshot 2025-04-29 at 13.50.36](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.50.36.png)
+![Screenshot 2025-04-29 at 13.50.36](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.50.36.png)
 
 ## CPU-I/O Burst Cycle
 
@@ -21,14 +21,14 @@ The rest of your content lives here. You can use **Markdown** here :) # CPU Sche
 
 > 처음과 마지막 burst는 CPU burst이다.
 
-![Screenshot 2025-04-29 at 13.58.35](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.58.35.png)
+![Screenshot 2025-04-29 at 13.58.35](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.58.35.png)
 ### 프로세스 타입
 - I/O-bound process
 	- CPU bursts가 짧게 많이
 - CPU-bound process
 	- CPU bursts가 길게 조금
 
-![Screenshot 2025-04-29 at 13.57.19](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.57.19.png)
+![Screenshot 2025-04-29 at 13.57.19](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.57.19.png)
 
 ## CPU Sheduler
 
@@ -56,7 +56,7 @@ ex) 인터럽트나 더 높은 우선순위의 프로세스
 3. 프로세스가 waiting 상태에서 ready 상태로 전환될 때
 4. 프로세스가 종료될 때
 
-![Screenshot 2025-04-29 at 14.09.41](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-29%20at%2014.09.41.png)
+![Screenshot 2025-04-29 at 14.09.41](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-29%20at%2014.09.41.png)
 
 1번과 4번은 필수
 2번과 3번은 스케줄링 방식에 따라 선택적이다.
@@ -98,7 +98,7 @@ short-term 스케줄러에 의해 선택된 프로세스에세 CPU 제어권을 
 ### Dispatch latency
 프로세스 중단부터 다른 프로세스 시작까지의 시간
 
-![Screenshot 2025-04-29 at 14.44.02](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-29%20at%2014.44.02.png)
+![Screenshot 2025-04-29 at 14.44.02](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-29%20at%2014.44.02.png)
 
 
 ## Scheduling Criteria
@@ -121,7 +121,7 @@ Non-preemptive scheduling
 
 근데 비효율을 곁들인
 
-![Screenshot 2025-04-30 at 11.38.40](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2011.38.40.png)
+![Screenshot 2025-04-30 at 11.38.40](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2011.38.40.png)
 
 ## Shortest-Job-First (SJF) scheduling
 
@@ -132,11 +132,11 @@ SJF는 waiting time의 관점에서 최적이다.
 문제는 다음 CPU burst의 길이를 알기 어렵다는 것
 -> 그동안 쌓인 burst time 기록을 기반으로 비슷하게 구현할 수 있음
 
-![Screenshot 2025-04-30 at 11.41.27](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2011.41.27.png)
+![Screenshot 2025-04-30 at 11.41.27](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2011.41.27.png)
 
 ### Exponential averaging
 
-![Screenshot 2025-04-30 at 11.57.28](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2011.57.28.png)
+![Screenshot 2025-04-30 at 11.57.28](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2011.57.28.png)
 
 - `t_n`: n번째 CPU burst의 실제 길이
 - `τ_n`: n번째 CPU burst의 예측값
@@ -145,11 +145,11 @@ SJF는 waiting time의 관점에서 최적이다.
 	- `α = 1`: n번째의 예측값만으로 n+1을 예측
 	- 보통 `α = 0.5` 사용
 
-![Screenshot 2025-04-30 at 12.01.23](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2012.01.23.png)
+![Screenshot 2025-04-30 at 12.01.23](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2012.01.23.png)
 
 ### Preemptive version of SJF scheduling
 
-![Pasted image 20250430120335](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250430120335.png)
+![Pasted image 20250430120335](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250430120335.png)
 
 ## Priority Scheduling
 
@@ -157,7 +157,7 @@ SJF는 waiting time의 관점에서 최적이다.
 
 - priority가 같은 프로세스들 끼리의 priority scheduling은 FCFS와 같다
 
-![Screenshot 2025-04-30 at 12.13.16](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2012.13.16.png)
+![Screenshot 2025-04-30 at 12.13.16](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2012.13.16.png)
 
 ### Priority can be assigned **internally** and **externally**
 
@@ -189,7 +189,7 @@ priority가 낮은 프로세스는 CPU 자원을 할당받지 못하는 문제
 - Ready queue를 **circular queue**로 취급
 - CPU scheduler는 1 ready queue를 돌면서 time quantum만큼의 시간을 부여
 
-![Screenshot 2025-04-30 at 12.50.09](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2012.50.09.png)
+![Screenshot 2025-04-30 at 12.50.09](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2012.50.09.png)
 
 RR 스케줄링의 성능은 time quantum size에 의존적
 - time quantum이 매우 짧음 = processor sharing
@@ -202,7 +202,7 @@ Turnaround time도 time quantum size에 의존적
 ### A rule of thumb
 80%의 CPU burst가 time quantum보다 짧아야 한다.
 
-![Screenshot 2025-04-29 at 13.57.19](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.57.19.png)
+![Screenshot 2025-04-29 at 13.57.19](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-29%20at%2013.57.19.png)
 
 
 ## Multilevel Queue Scheduling
@@ -211,7 +211,7 @@ Turnaround time도 time quantum size에 의존적
 
 ready queue를 여러개의 queue로 분할
 
-![Screenshot 2025-04-30 at 17.52.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2017.52.14.png)
+![Screenshot 2025-04-30 at 17.52.14](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2017.52.14.png)
 
 각 queue는 자기들만의 스케줄링 알고리즘이 존재한다.
 
@@ -240,7 +240,7 @@ multilevel queue scheduling과 비슷한데, 이제 프로세스가 queue간에 
 **CPU time을 너무 많이 사용하는 프로세스**를 더 낮은 우선순위의 큐로 이동
 **I/O-bound (interactive) 프로세스**는 더 높은 우선순위의 큐로 이동
 
-![Screenshot 2025-04-30 at 18.55.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2018.55.14.png)
+![Screenshot 2025-04-30 at 18.55.14](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2018.55.14.png)
 
 ### Parameters to define a multilevel feedback-queue scheduler
 
@@ -268,7 +268,7 @@ load balancing 가능
 1. 모든 스레드가 하나의 common ready에 있을 수 있음
 2. 각 프로세서별로 자체적인 개인 스레드 큐를 가질 수 있음
 
-![Pasted image 20250430192929](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250430192929.png)
+![Pasted image 20250430192929](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250430192929.png)
 
 ## Processor Affinity 프로세서 친화성
 
@@ -314,7 +314,7 @@ ex) 캐시에 없는 데이터에 접근할 때
 
 멀티스레드 프로세서 코어로 **memory stall** 해결가능
 
-![Screenshot 2025-04-30 at 20.52.07](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2020.52.07.png)
+![Screenshot 2025-04-30 at 20.52.07](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2020.52.07.png)
 
 ---
 
@@ -343,7 +343,7 @@ ex) 캐시에 없는 데이터에 접근할 때
 
 - 커널 스레드 간 CPU competition
 
-![Screenshot 2025-04-30 at 21.14.54](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-30%20at%2021.14.54.png)
+![Screenshot 2025-04-30 at 21.14.54](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-30%20at%2021.14.54.png)
 
 ## Pthread Scheduling
 
@@ -412,20 +412,20 @@ deadline 못지키면 처리 안된 것. (시스템 오작동 가능성 있)
 
 ### Event latency
 이벤트 발생 시점부터 처리 시점까지 경과한 시간
-![Screenshot 2025-05-05 at 14.28.16](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-05-05%20at%2014.28.16.png)
+![Screenshot 2025-05-05 at 14.28.16](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-05-05%20at%2014.28.16.png)
 
 이벤트 레이턴시는 짧을수록 좋다
 
 ### Interrupt Latency
 CPU에 인터럽트가 도착한 시점부터 해당 인터럽트 서비스 루틴이 시작하기까지 걸리는 시간
-![Screenshot 2025-05-05 at 14.30.22](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-05-05%20at%2014.30.22.png)
+![Screenshot 2025-05-05 at 14.30.22](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-05-05%20at%2014.30.22.png)
 
 ### Dispatch Latency
 스케줄링 디스패처가 프로세스를 중단하고 다른 프로세스를 실행하는 데 걸리는 시간
 
 > **preemptive 커널**은 dispatch latency를 낮게 유지하는 가장 효율적인 테크닉
 
-![Screenshot 2025-05-05 at 14.32.27](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-05-05%20at%2014.32.27.png)
+![Screenshot 2025-05-05 at 14.32.27](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-05-05%20at%2014.32.27.png)
 
 #### Conflict phase 충돌 단계
 1. Preemption of any process running in the kernel (커널에서 실행중인 모든 프로세스의 선점)

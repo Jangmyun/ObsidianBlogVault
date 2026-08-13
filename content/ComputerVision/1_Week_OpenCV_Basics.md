@@ -46,7 +46,7 @@ void matrix_declaration() {
 ```
 
 #### result
-![Screenshot 2025-09-02 at 23.21.25](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.21.25.png)
+![Screenshot 2025-09-02 at 23.21.25](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.21.25.png)
 
 Multi-channel 이미지를 위해서는 `Scalar` 함수를
 
@@ -61,7 +61,7 @@ Multi-channel 이미지를 위해서는 `Scalar` 함수를
 
 **데이터의 주소만 복사** 하는 방법
 
-![Screenshot 2025-09-02 at 23.40.49](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.40.49.png)
+![Screenshot 2025-09-02 at 23.40.49](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.40.49.png)
 
 위 그림에서 `cv::Mat m1`을 `m2`에 대입 (`cv::Mat m2 = m1` 혹은 `cv::Mat m2(m1)`) 하면 두 `Mat` 객체는 동일한 데이터를 가리키게 된다.
 ### Depp Copy (깊은 복사)
@@ -69,7 +69,7 @@ Multi-channel 이미지를 위해서는 `Scalar` 함수를
 **데이터를 완전히 복사**하여 새로운 메모리 공간에 할당하는 방법
 `clone()`이나 `copyTo()` 메서드를 사용한다.
 
-![Screenshot 2025-09-02 at 23.41.01](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.41.01.png)
+![Screenshot 2025-09-02 at 23.41.01](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.41.01.png)
 
 `cv::Mat m1` 를 `m2`로 깊은 복사 하면 두 `Mat` 객체는 **서로 독립적인** 데이터를 가지게 된다.
 
@@ -99,7 +99,7 @@ void matrix_copy() {
 
 #### result
 
-![Screenshot 2025-09-02 at 23.57.10](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.57.10.png)
+![Screenshot 2025-09-02 at 23.57.10](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-02%20at%2023.57.10.png)
 
 
 ### example 2
@@ -125,7 +125,7 @@ void matrix_copy2() {
 
 #### result
 
-![Pasted image 20250903001416](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250903001416.png)
+![Pasted image 20250903001416](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250903001416.png)
 
 
 ## Mat Conversion
@@ -204,7 +204,7 @@ void matrix_conversion() {
 
 #### result
 
-![Screenshot 2025-09-03 at 00.38.56](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-03%20at%2000.38.56.png)
+![Screenshot 2025-09-03 at 00.38.56](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-03%20at%2000.38.56.png)
 
 ## Read Image/Video
 
@@ -340,7 +340,7 @@ void display_image() {
 
 ##### result
 
-![Screenshot 2025-09-03 at 01.06.13](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-03%20at%2001.06.13.png)
+![Screenshot 2025-09-03 at 01.06.13](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-03%20at%2001.06.13.png)
 
 ### Display a video
 
@@ -370,7 +370,7 @@ void display_video() {
 ```
 #### result
 
-![Screenshot 2025-09-03 at 01.07.57](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-03%20at%2001.07.57.png)
+![Screenshot 2025-09-03 at 01.07.57](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-03%20at%2001.07.57.png)
 
 
 ### waitKey
@@ -400,6 +400,6 @@ void resize_image() {
 
 #### result
 
-![Screenshot 2025-09-03 at 01.15.17](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-03%20at%2001.15.17.png)
+![Screenshot 2025-09-03 at 01.15.17](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-03%20at%2001.15.17.png)
 
 

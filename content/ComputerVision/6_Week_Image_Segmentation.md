@@ -120,7 +120,7 @@ double threshold(
 	- `THRESH_TOZERO`: `thresh`보다 크면 그대로, 작거나 같으면 0으로
 	- `THRESH_TOZERO_INV`: `THRESH_TOZERO`의 inverse
 
-![Screenshot 2025-10-10 at 01.42.01](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-10%20at%2001.42.01.png)
+![Screenshot 2025-10-10 at 01.42.01](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-10%20at%2001.42.01.png)
 
 #### Example
 
@@ -140,7 +140,7 @@ void testThreshold() {
 
 #### result
 
-![Screenshot 2025-10-10 at 01.56.22](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-10%20at%2001.56.22.png)
+![Screenshot 2025-10-10 at 01.56.22](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-10%20at%2001.56.22.png)
 
 
 ### adaptiveThreshold
@@ -186,7 +186,7 @@ void testAdaptiveThreshold() {
 
 #### Result
 
-![Screenshot 2025-10-10 at 02.03.41](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.03.41.png)
+![Screenshot 2025-10-10 at 02.03.41](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.03.41.png)
 
 
 ### inRange
@@ -223,7 +223,7 @@ void testInRange() {
 
 #### Result
 
-![Screenshot 2025-10-10 at 02.14.17](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.14.17.png)
+![Screenshot 2025-10-10 at 02.14.17](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.14.17.png)
 
 
 ## Global Thresholding
@@ -290,7 +290,7 @@ void testGlobalThresholding_BasicMethod() {
 }
 ```
 
-![Screenshot 2025-10-10 at 02.46.05](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.46.05.png)
+![Screenshot 2025-10-10 at 02.46.05](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.46.05.png)
 
 ### Otsu's Method
 
@@ -309,7 +309,7 @@ void testGlobalThresholding_OtsusMethod() {
 }
 ```
 
-![Screenshot 2025-10-10 at 02.50.16](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.50.16.png)
+![Screenshot 2025-10-10 at 02.50.16](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-10-10%20at%2002.50.16.png)
 
 ### Otsu's algorithm 설명
 

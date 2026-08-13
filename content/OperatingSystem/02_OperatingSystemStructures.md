@@ -37,7 +37,7 @@ The rest of your content lives here. You can use **Markdown** here :)# Operating
 #### System-call interface
 programming language와 OS간의 연결 (`open()`, `close()`같은 명령어의 구현)
 
-![Screenshot 2025-04-10 at 22.22.30](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.22.30.png)
+![Screenshot 2025-04-10 at 22.22.30](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.22.30.png)
 
 ## Dual Mode Operation
 
@@ -49,7 +49,7 @@ programming language와 OS간의 연결 (`open()`, `close()`같은 명령어의 
 ### Kernel mode (supervisor mode, system mode, privileged mode)
 privileged instruction 허용
 
-![Screenshot 2025-04-10 at 22.24.31](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.24.31.png)
+![Screenshot 2025-04-10 at 22.24.31](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.24.31.png)
 
 ## Interrupt Handling
 
@@ -65,7 +65,7 @@ privileged instruction 허용
 
 시스템 콜의 종류에 따라 무엇을 사용할지 다르다
 
-![Screenshot 2025-04-10 at 22.31.50](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.31.50.png)
+![Screenshot 2025-04-10 at 22.31.50](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.31.50.png)
 
 
 ## System-Call interface
@@ -79,7 +79,7 @@ high level language에서 시스템 호출하는 방법 (ex. `int open(const cha
 high level language는 OS의 System call (인터럽트)을 직접 노출하지 않고 OS의 기능을 추상화한 함수를 호출 (간접적으로 이용)
 
 
-![Screenshot 2025-04-10 at 22.47.37](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.47.37.png)
+![Screenshot 2025-04-10 at 22.47.37](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-10%20at%2022.47.37.png)
 
 겉에서 봤을때는 일반 C언어 함수와 같지만 내부적으로 assembly instruction을 이용해서 인터럽트를 호출한다.
 
@@ -87,7 +87,7 @@ high level language는 OS의 System call (인터럽트)을 직접 노출하지 �
 시스템 콜에 맞는 핸들러를 찾아서 호출
 
 🧨IRQ number와 System call number는 다른 것
-![Screenshot 2025-04-10 at 23.26.44](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-10%20at%2023.26.44.png)
+![Screenshot 2025-04-10 at 23.26.44](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-10%20at%2023.26.44.png)
 
 1. User program에서 `open()`을 호출
 2. System-Call Interface로 가서 assembly로 된 instruction 실행
@@ -129,7 +129,7 @@ high level language는 OS의 System call (인터럽트)을 직접 노출하지 �
 - System call과 strongly correlated 관계일 수도 있다.
 - System call로 구현된 high-level featrue을 제공할 수 있다.
 
-![Screenshot 2025-04-11 at 02.11.00](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-11%20at%2002.11.00.png)
+![Screenshot 2025-04-11 at 02.11.00](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-11%20at%2002.11.00.png)
 
 POSIX의 경우 System Call이 API라고 생각하면 됨
 WIN32는 high-level
@@ -146,7 +146,7 @@ parent program은
 
 ### FreeBSD UNIX
 
-![Screenshot 2025-04-11 at 02.30.43](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-11%20at%2002.30.43.png)
+![Screenshot 2025-04-11 at 02.30.43](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-11%20at%2002.30.43.png)
 
 `ls`명령어를 실행한 경우
 
@@ -297,7 +297,7 @@ current 프로세스의 메모리 공간을 새로운 프로그램의 코드로 
 	- 덤프 - 메모리 내용 전체 혹은 일부를 파일이나 다른 저장장치치에 기록 (어떤 데이터가 어떤 값이었는지 등을 확인가능)
 	- 트레이스 - 모든 명령어 실행 후 트랩
 
-![Screenshot 2025-04-11 at 15.38.58](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-11%20at%2015.38.58.png)
+![Screenshot 2025-04-11 at 15.38.58](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-11%20at%2015.38.58.png)
 
 - Termination
 	- Normal termination `exit()`
@@ -354,7 +354,7 @@ application 프로그램이 ROM-BIOS도 실행할 수 있었고, 하드웨어까
 - 하나 고장나면 다 고장남
 - 유지보수, 확장이 힘들다
 
-![Screenshot 2025-04-11 at 16.26.22](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-11%20at%2016.26.22.png)
+![Screenshot 2025-04-11 at 16.26.22](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-11%20at%2016.26.22.png)
 
 리눅스는 모놀리식 구조지만 커널이 모듈화 되어있다.
 
@@ -372,7 +372,7 @@ application 프로그램이 ROM-BIOS도 실행할 수 있었고, 하드웨어까
 
 #### 예시 - 메모리 매니저
 
-![Screenshot 2025-04-11 at 16.34.23](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-11%20at%2016.34.23.png)
+![Screenshot 2025-04-11 at 16.34.23](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-11%20at%2016.34.23.png)
 
 **Backing store driver**- 가상 메모리 구현을 위한 모델
 
@@ -417,7 +417,7 @@ Layered Approach를 사용할 때는 관계 설계를 잘 해야한다.
 	- 각 모듈을 커널모드에서 실행할 수 있다.
 	- 퍼포먼스가 좋다 (메시지 패싱 안해서))
 
-![Screenshot 2025-04-11 at 18.50.50](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-11%20at%2018.50.50.png)
+![Screenshot 2025-04-11 at 18.50.50](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-11%20at%2018.50.50.png)
 
 ## Hybrid System
 
@@ -427,8 +427,8 @@ Layered Approach를 사용할 때는 관계 설계를 잘 해야한다.
 - **Windows**: monolithic, microkernel
 - **Mac OS X**:  hybrid, layered
 ### MacOS, iOS
-![Screenshot 2025-04-12 at 13.38.01](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.38.01.png)
+![Screenshot 2025-04-12 at 13.38.01](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.38.01.png)
 
 - Kernel environment (**Darwin**): Hybrid Structure
-![Screenshot 2025-04-12 at 13.38.44](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.38.44.png)
+![Screenshot 2025-04-12 at 13.38.44](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-04-12%20at%2013.38.44.png)
 

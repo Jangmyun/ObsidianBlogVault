@@ -8,7 +8,7 @@ tags:
  
 # Basics of Color
 
-![Screenshot 2025-09-25 at 17.40.53](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-25%20at%2017.40.53.png)
+![Screenshot 2025-09-25 at 17.40.53](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-25%20at%2017.40.53.png)
 
 #### Primary Colors of Light
 
@@ -34,7 +34,7 @@ R채널, G채널, B채널로 이루어짐
 
 각 채널마다 `[0, 255]` 범위
 
-![Screenshot 2025-09-25 at 19.37.03](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-25%20at%2019.37.03.png)
+![Screenshot 2025-09-25 at 19.37.03](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-25%20at%2019.37.03.png)
 
 
 ### HSI
@@ -60,7 +60,7 @@ OpenCV에서는
 - `255*V (0 < V < 255)`
 
 
-![Screenshot 2025-09-25 at 20.00.12](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-25%20at%2020.00.12.png)
+![Screenshot 2025-09-25 at 20.00.12](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-25%20at%2020.00.12.png)
 
 
 
@@ -70,7 +70,7 @@ OpenCV에서는
 - Cb : 파란색 성분과 밝기의 차이 (B-Y)
 - Cr : 붉은색 성분과 밝기의 차이 (R-Y)
 
-![Screenshot 2025-09-25 at 20.00.58](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-25%20at%2020.00.58.png)
+![Screenshot 2025-09-25 at 20.00.58](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-25%20at%2020.00.58.png)
 
 
 ### Grayscale
@@ -117,7 +117,7 @@ Color Scale을 함께 포함하여 색이 어떤 의미인지 이해할 수 있�
 
 ## White Balancing
 
-![Screenshot 2025-09-25 at 20.53.05](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-25%20at%2020.53.05.png)
+![Screenshot 2025-09-25 at 20.53.05](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-25%20at%2020.53.05.png)
 
 컬러 영상의 전반적인 색 intensity를 조정해 흰색인 물체가 실제로 흰색처럼 보이게 만드는 과정
 
@@ -244,7 +244,7 @@ void testSplitAndMerge() {
 
 YUV 채널들을 `merge()` 한 결과가 이상한데, 이는 `imshow()` 함수가 BGR 로 이미지를 출력하기 때문
 
-![Screenshot 2025-09-25 at 23.33.14](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-25%20at%2023.33.14.png)
+![Screenshot 2025-09-25 at 23.33.14](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-25%20at%2023.33.14.png)
 
 
 ## Color Processing
@@ -323,7 +323,7 @@ void testHSI() {
 }
 ```
 
-![Screenshot 2025-09-26 at 00.05.04](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-26%20at%2000.05.04.png)
+![Screenshot 2025-09-26 at 00.05.04](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-26%20at%2000.05.04.png)
 
 
 ### Pseudo Coloring
@@ -343,7 +343,7 @@ void testPseudoColoring() {
 }
 ```
 
-![Screenshot 2025-09-26 at 00.07.07](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-26%20at%2000.07.07.png)
+![Screenshot 2025-09-26 at 00.07.07](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-26%20at%2000.07.07.png)
 
 ### White Balancing
 
@@ -401,4 +401,4 @@ void testWhiteBalancing() {
 
 
 
-![Screenshot 2025-09-26 at 00.31.06](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-26%20at%2000.31.06.png)
+![Screenshot 2025-09-26 at 00.31.06](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-26%20at%2000.31.06.png)

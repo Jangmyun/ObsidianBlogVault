@@ -17,7 +17,7 @@ tags:
 
 ## 관리 체계 Overview, 용어
 
-![Screenshot 2025-09-15 at 19.39.51](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-15%20at%2019.39.51.png)
+![Screenshot 2025-09-15 at 19.39.51](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-15%20at%2019.39.51.png)
 
 ### 취약점의 식별과 분류
 #### CVE (Common Vulnerabilities and Exposures) 취약점 식별자
@@ -73,7 +73,7 @@ NVD 정보를 통해 시스템의 보안설정 상태를 검사하기 위한 언
 
 ## NVD, CVE, CWE 관리기관
 
-![Screenshot 2025-09-15 at 20.31.38](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-15%20at%2020.31.38.png)
+![Screenshot 2025-09-15 at 20.31.38](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-15%20at%2020.31.38.png)
 
 MITRE 에서 **CAPEC(Common Attack Pattern Enumeration and Classification)** 도 관리
 
@@ -94,7 +94,7 @@ MITRE 에서 **CAPEC(Common Attack Pattern Enumeration and Classification)** 도
 
 ## CVE Process
 
-![Pasted image 20250915203319](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250915203319.png)
+![Pasted image 20250915203319](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250915203319.png)
 
 1. Discover
 2. Report
@@ -164,7 +164,7 @@ CWE 사이의 관계 표시
 
 ChildOf, ParentOf, MemberOf, PeerOf 등 다양한 관계 존재
 
-![Screenshot 2025-09-15 at 21.11.47](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Screenshot%202025-09-15%20at%2021.11.47.png)
+![Screenshot 2025-09-15 at 21.11.47](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Screenshot%202025-09-15%20at%2021.11.47.png)
 
 #### CWE-Observed Examples (CVE)
 

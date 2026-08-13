@@ -80,7 +80,7 @@ HTTP는 클라이언트가 서버에 원하는 동작을 알리기 위해 **메�
 	- 요청에 대한 추가정보 (브라우저 종류, 데이터 형식 등)
 - **Request Body**
 
-![Pasted image 20250811164736](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250811164736.png)
+![Pasted image 20250811164736](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250811164736.png)
 
 
 ### HTTP Response
@@ -93,7 +93,7 @@ HTTP는 클라이언트가 서버에 원하는 동작을 알리기 위해 **메�
 	- 응답에 대한 추가 정보 (서버시간, 서버 이름 등)
 - **Response Body**
 
-![Pasted image 20250811164716](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250811164716.png)
+![Pasted image 20250811164716](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250811164716.png)
 
 
 
@@ -124,7 +124,7 @@ HTTP는 클라이언트가 서버에 원하는 동작을 알리기 위해 **메�
 **Frame**이라는 최소 단위로 데이터를 주고 받음
 한 프레임은 고정된 구성을 가지고 프레임 헤더와 데이터(payload)로 구성
 
-![Pasted image 20250811173055](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250811173055.png)
+![Pasted image 20250811173055](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250811173055.png)
 
 ##### Frame
 
@@ -160,7 +160,7 @@ HTTP는 클라이언트가 서버에 원하는 동작을 알리기 위해 **메�
 - HTTP/2
 	- 멀티플렉싱을 통해 하나의 연결로 여러 요청과 응답을 동시에 처리
 
-![Pasted image 20250811174647](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250811174647.png)
+![Pasted image 20250811174647](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250811174647.png)
 
 ### 헤더 압축 (Header Compression)
 
@@ -210,7 +210,7 @@ HTTP/2 에서는 **Server Push** 기능으로 서버가 클라이언트가 요�
 
 구글에서 개발한 UDP 기반의 **QUIC (Quick UDP Internet Connections)** 를 사용하여 통신하는 프로토콜
 
-![Pasted image 20250812143044](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250812143044.png)
+![Pasted image 20250812143044](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250812143044.png)
 
 QUIC은 TCP, TLS, HTTP의 기능을 모두 구현한 프로토콜로
 
@@ -226,7 +226,7 @@ TLS + TCP 에서는 TCP 연결 생성을 위한 hand-shanking 과정과 TLS를 �
 
 QUIC 내에 TLS 인증서를 포함하므로서 최초 연결 설정 한번으로 필요한 인증 정보와 데이터를 함께 전송한다.
 
-![Pasted image 20250812164100](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250812164100.png)
+![Pasted image 20250812164100](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250812164100.png)
 
 #### 연결 마이그레이션
 
@@ -252,7 +252,7 @@ QUIC 에서는 Application layer에서 **여러개의 독립적인 스트림**�
 
 기본적으로 QUIC 내에 TLS가 포함됨
 
-![Pasted image 20250812203843](https://cloud.jangmyun.dev/s/SBY2qSPTYMRmfHp/download?path=%2F&files=Pasted%20image%2020250812203843.png)
+![Pasted image 20250812203843](https://cloud.jangmyun.dev/s/PM9dA5jJFjDjrzt/download?path=%2F&files=Pasted%20image%2020250812203843.png)
 
 ##### 암호화 방식
 
