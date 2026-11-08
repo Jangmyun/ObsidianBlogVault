@@ -1,7 +1,7 @@
 ---
 title: "[CV] Color Processing"
 description: 색 공간을 이해하고 컬러 이미지의 프로세싱 방법을 알아보자.
-draft: false
+draft: true
 tags:
   - computer_vision
 ---

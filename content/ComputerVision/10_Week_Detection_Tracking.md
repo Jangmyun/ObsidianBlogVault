@@ -1,7 +1,7 @@
 ---
 title: "[CV] Detection과 Tracking"
 description: Object Detection과 Tracking에 대해 알아보자
-draft: false
+draft: true
 tags:
   - computer_vision
 ---

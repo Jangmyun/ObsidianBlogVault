@@ -1,7 +1,7 @@
 ---
 title: "\b1. 데이터베이스 입문 - 명령어 알아보기"
 description: "DBMS를 통한 간단한 CRUD, SQL 명령어 종류와 데이터 타입\e"
-draft: false
+draft: true
 tags:
   - DB
 ---

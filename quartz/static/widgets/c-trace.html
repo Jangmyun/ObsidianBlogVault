@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C 코드 추적</title>
+    <style>
+      :root {
+        --light: #faf8f8;
+        --lightgray: #e5e5e5;
+        --gray: #b8b8b8;
+        --darkgray: #4e4e4e;
+        --dark: #2b2b2b;
+        --secondary: #284b63;
+        --tertiary: #84a59d;
+        --highlight: rgba(143, 159, 169, 0.15);
+        --changed: #fff23688;
+        --good: #2f7d5b;
+        --bad: #b3402e;
+      }
+      :root[data-theme="dark"] {
+        --light: #161618;
+        --lightgray: #393639;
+        --gray: #646464;
+        --darkgray: #d4d4d4;
+        --dark: #ebebec;
+        --secondary: #7b97aa;
+        --highlight: rgba(143, 159, 169, 0.15);
+        --changed: #b3aa0288;
+        --good: #6fc39b;
+        --bad: #ec8a78;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--light);
+        color: var(--darkgray);
+        font:
+          15px/1.55 "Source Sans Pro",
+          system-ui,
+          -apple-system,
+          "Apple SD Gothic Neo",
+          sans-serif;
+      }
+      button,
+      input {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        min-height: 36px;
+        padding: 0 12px;
+        border: 1px solid var(--lightgray);
+        border-radius: 6px;
+        background: transparent;
+        cursor: pointer;
+      }
+      button:hover:not(:disabled) {
+        border-color: var(--secondary);
+        color: var(--secondary);
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      button:focus-visible,
+      input:focus-visible {
+        outline: 2px solid var(--secondary);
+        outline-offset: 1px;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .tabs button[aria-selected="true"] {
+        border-color: var(--secondary);
+        background: var(--secondary);
+        color: var(--light);
+      }
+      .answer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 0 12px;
+      }
+      .answer label {
+        color: var(--dark);
+        font-weight: 600;
+      }
+      .answer input {
+        flex: 0 1 140px;
+        min-width: 90px;
+        height: 36px;
+        padding: 0 10px;
+        border: 1px solid var(--gray);
+        border-radius: 6px;
+        background: transparent;
+        font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      }
+      #verdict.good {
+        color: var(--good);
+      }
+      #verdict.bad {
+        color: var(--bad);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        gap: 16px;
+      }
+      @media (max-width: 620px) {
+        .grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      h2 {
+        margin: 0 0 6px;
+        color: var(--gray);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      pre {
+        margin: 0;
+        padding: 8px 0;
+        overflow-x: auto;
+        border: 1px solid var(--lightgray);
+        border-radius: 6px;
+        font:
+          13px/1.6 "IBM Plex Mono",
+          ui-monospace,
+          Menlo,
+          monospace;
+      }
+      .line {
+        display: block;
+        min-width: max-content;
+        padding-right: 12px;
+      }
+      .line i {
+        display: inline-block;
+        width: 2.6em;
+        padding-right: 0.9em;
+        color: var(--gray);
+        font-style: normal;
+        text-align: right;
+        user-select: none;
+      }
+      .line.on {
+        background: var(--changed);
+        color: var(--dark);
+      }
+      .line.on i {
+        color: inherit;
+      }
+      .frame {
+        margin-bottom: 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--lightgray);
+        border-radius: 6px;
+      }
+      .frame b {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--secondary);
+        font-size: 13px;
+      }
+      .frame.empty {
+        color: var(--gray);
+      }
+      .var {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 3px 0;
+        font:
+          13px/1.4 "IBM Plex Mono",
+          ui-monospace,
+          Menlo,
+          monospace;
+      }
+      .var > span:first-child {
+        min-width: 1.6em;
+        padding-bottom: 4px;
+      }
+      .cells {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .cell {
+        min-width: 42px;
+        text-align: center;
+      }
+      .cell .tag {
+        display: block;
+        height: 1.3em;
+        color: var(--secondary);
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .cell .val {
+        display: block;
+        padding: 3px 6px;
+        border: 1px solid var(--gray);
+        margin-left: -1px;
+      }
+      .cell .idx {
+        display: block;
+        color: var(--gray);
+        font-size: 10px;
+      }
+      .val.scalar {
+        padding: 3px 8px;
+        border: 1px solid var(--gray);
+        border-radius: 3px;
+      }
+      .changed {
+        background: var(--changed);
+        color: var(--dark);
+      }
+      .out {
+        min-height: 34px;
+        padding: 6px 10px;
+        border: 1px solid var(--lightgray);
+        border-radius: 6px;
+        font:
+          13px/1.5 "IBM Plex Mono",
+          ui-monospace,
+          Menlo,
+          monospace;
+        white-space: pre-wrap;
+      }
+      #note {
+        min-height: 3.2em;
+        margin: 12px 0 10px;
+        padding: 8px 12px;
+        border-left: 3px solid var(--secondary);
+        background: var(--highlight);
+        color: var(--dark);
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      #pos {
+        margin-left: auto;
+        color: var(--gray);
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="answer">
+      <label for="guess">먼저 손으로 풀어 출력을 적어 보세요</label>
+      <input id="guess" autocomplete="off" spellcheck="false" />
+      <button id="check">확인</button>
+      <span id="verdict" role="status"></span>
+    </div>
+    <div class="grid">
+      <div>
+        <h2>코드</h2>
+        <pre id="code"></pre>
+      </div>
+      <div>
+        <h2>메모리</h2>
+        <div id="mem"></div>
+        <h2>출력</h2>
+        <div class="out" id="out"></div>
+      </div>
+    </div>
+    <div id="note" aria-live="polite"></div>
+    <div class="controls">
+      <button id="first">처음</button>
+      <button id="prev">← 이전</button>
+      <button id="next">다음 →</button>
+      <span id="pos"></span>
+    </div>
+
+    <script>
+      const ptr = (to, i) => ({ to, i })
+      const PROBLEMS = [
+        {
+          label: "1. 포인터와 배열",
+          answer: "15 6",
+          code: `#include <stdio.h>
+
+int main(void) {
+    int a[4] = {3, 5, 7, 9};
+    int *p = a;
+    p++;
+    *p += 10;
+    p += 2;
+    *(p - 1) = *p - a[0];
+    printf("%d %d\\n", a[1], a[2]);
+    return 0;
+}`,
+          steps: [
+            [
+              4,
+              "배열 a를 초기화한다. 칸 번호는 0부터 시작한다.",
+              [["main", [["a", [3, 5, 7, 9]]]]],
+            ],
+            [
+              5,
+              "배열 이름 a는 첫 칸의 주소다. 그래서 p는 a[0]을 가리킨다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", [3, 5, 7, 9]],
+                    ["p", ptr("a", 0)],
+                  ],
+                ],
+              ],
+            ],
+            [
+              6,
+              "p++는 주소를 int 한 칸만큼 옮긴다. 값은 바뀌지 않고, p가 a[1]로 이동한다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", [3, 5, 7, 9]],
+                    ["p", ptr("a", 1)],
+                  ],
+                ],
+              ],
+            ],
+            [
+              7,
+              "*p는 p가 가리키는 칸 자체다. a[1]이 5 + 10 = 15가 된다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", [3, 15, 7, 9]],
+                    ["p", ptr("a", 1)],
+                  ],
+                ],
+              ],
+            ],
+            [
+              8,
+              "p를 두 칸 옮겨 a[3]을 가리키게 한다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", [3, 15, 7, 9]],
+                    ["p", ptr("a", 3)],
+                  ],
+                ],
+              ],
+            ],
+            [
+              9,
+              "p - 1은 a[2]다. 오른쪽은 a[3] - a[0] = 9 - 3 = 6이다. p 자체는 움직이지 않는다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", [3, 15, 6, 9]],
+                    ["p", ptr("a", 3)],
+                  ],
+                ],
+              ],
+            ],
+            [
+              10,
+              "a[1]과 a[2]를 출력한다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", [3, 15, 6, 9]],
+                    ["p", ptr("a", 3)],
+                  ],
+                ],
+              ],
+              "15 6",
+            ],
+          ],
+        },
+        {
+          label: "2. 값 전달과 주소 전달",
+          answer: "9 6",
+          code: `#include <stdio.h>
+
+void f(int x, int *y) {
+    x = x + 1;
+    *y = *y + x;
+}
+
+int main(void) {
+    int a = 2, b = 3;
+    f(a, &b);
+    f(b, &a);
+    printf("%d %d\\n", a, b);
+    return 0;
+}`,
+          steps: [
+            [
+              9,
+              "main의 지역 변수 a, b를 만든다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 3],
+                  ],
+                ],
+              ],
+            ],
+            [
+              10,
+              "x에는 a의 값 2가 복사되고, y에는 b의 주소가 들어간다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 3],
+                  ],
+                ],
+                [
+                  "f",
+                  [
+                    ["x", 2],
+                    ["y", ptr("b")],
+                  ],
+                ],
+              ],
+            ],
+            [
+              4,
+              "x는 복사본이다. x만 3이 되고 main의 a는 그대로 2다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 3],
+                  ],
+                ],
+                [
+                  "f",
+                  [
+                    ["x", 3],
+                    ["y", ptr("b")],
+                  ],
+                ],
+              ],
+            ],
+            [
+              5,
+              "*y는 main의 b다. b가 3 + 3 = 6이 된다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 6],
+                  ],
+                ],
+                [
+                  "f",
+                  [
+                    ["x", 3],
+                    ["y", ptr("b")],
+                  ],
+                ],
+              ],
+            ],
+            [
+              6,
+              "함수가 끝나면 x와 y는 사라진다. b에 쓴 값만 남는다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 6],
+                  ],
+                ],
+              ],
+            ],
+            [
+              11,
+              "두 번째 호출이다. 이번에는 x에 b의 값 6이 복사되고, y는 a를 가리킨다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 6],
+                  ],
+                ],
+                [
+                  "f",
+                  [
+                    ["x", 6],
+                    ["y", ptr("a")],
+                  ],
+                ],
+              ],
+            ],
+            [
+              4,
+              "x가 7이 된다. main의 b는 그대로 6이다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 2],
+                    ["b", 6],
+                  ],
+                ],
+                [
+                  "f",
+                  [
+                    ["x", 7],
+                    ["y", ptr("a")],
+                  ],
+                ],
+              ],
+            ],
+            [
+              5,
+              "*y는 main의 a다. a가 2 + 7 = 9가 된다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 9],
+                    ["b", 6],
+                  ],
+                ],
+                [
+                  "f",
+                  [
+                    ["x", 7],
+                    ["y", ptr("a")],
+                  ],
+                ],
+              ],
+            ],
+            [
+              6,
+              "함수가 끝나고 f의 변수가 사라진다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 9],
+                    ["b", 6],
+                  ],
+                ],
+              ],
+            ],
+            [
+              12,
+              "a와 b를 출력한다.",
+              [
+                [
+                  "main",
+                  [
+                    ["a", 9],
+                    ["b", 6],
+                  ],
+                ],
+              ],
+              "9 6",
+            ],
+          ],
+        },
+        {
+          label: "3. static 지역 변수",
+          answer: "10",
+          code: `#include <stdio.h>
+
+int count(void) {
+    static int n = 1;
+    int m = 1;
+    n += m;
+    m++;
+    return n * m;
+}
+
+int main(void) {
+    int r = count();
+    r += count();
+    printf("%d\\n", r);
+    return 0;
+}`,
+          steps: [
+            [
+              12,
+              "count를 호출한다. static 변수 n은 프로그램이 시작될 때 이미 1로 초기화돼 있다.",
+              [
+                ["static 영역", [["n", 1]]],
+                ["main", [["r", "?"]]],
+                ["count", []],
+              ],
+            ],
+            [
+              5,
+              "4번째 줄의 초기화는 실행 때 다시 일어나지 않는다. 일반 지역 변수 m만 새로 만든다.",
+              [
+                ["static 영역", [["n", 1]]],
+                ["main", [["r", "?"]]],
+                ["count", [["m", 1]]],
+              ],
+            ],
+            [
+              6,
+              "n이 1 + 1 = 2가 된다.",
+              [
+                ["static 영역", [["n", 2]]],
+                ["main", [["r", "?"]]],
+                ["count", [["m", 1]]],
+              ],
+            ],
+            [
+              7,
+              "m이 2가 된다.",
+              [
+                ["static 영역", [["n", 2]]],
+                ["main", [["r", "?"]]],
+                ["count", [["m", 2]]],
+              ],
+            ],
+            [
+              8,
+              "2 × 2 = 4를 돌려준다.",
+              [
+                ["static 영역", [["n", 2]]],
+                ["main", [["r", "?"]]],
+                ["count", [["m", 2]]],
+              ],
+            ],
+            [
+              12,
+              "r에 4가 저장된다. m은 사라지지만 n은 2로 남는다.",
+              [
+                ["static 영역", [["n", 2]]],
+                ["main", [["r", 4]]],
+              ],
+            ],
+            [
+              13,
+              "count를 다시 호출한다.",
+              [
+                ["static 영역", [["n", 2]]],
+                ["main", [["r", 4]]],
+                ["count", []],
+              ],
+            ],
+            [
+              5,
+              "m은 호출할 때마다 새로 만들어져 다시 1이다.",
+              [
+                ["static 영역", [["n", 2]]],
+                ["main", [["r", 4]]],
+                ["count", [["m", 1]]],
+              ],
+            ],
+            [
+              6,
+              "n은 이전 값 2에서 이어져 3이 된다.",
+              [
+                ["static 영역", [["n", 3]]],
+                ["main", [["r", 4]]],
+                ["count", [["m", 1]]],
+              ],
+            ],
+            [
+              7,
+              "m이 2가 된다.",
+              [
+                ["static 영역", [["n", 3]]],
+                ["main", [["r", 4]]],
+                ["count", [["m", 2]]],
+              ],
+            ],
+            [
+              8,
+              "3 × 2 = 6을 돌려준다.",
+              [
+                ["static 영역", [["n", 3]]],
+                ["main", [["r", 4]]],
+                ["count", [["m", 2]]],
+              ],
+            ],
+            [
+              13,
+              "r이 4 + 6 = 10이 된다.",
+              [
+                ["static 영역", [["n", 3]]],
+                ["main", [["r", 10]]],
+              ],
+            ],
+            [
+              14,
+              "r을 출력한다.",
+              [
+                ["static 영역", [["n", 3]]],
+                ["main", [["r", 10]]],
+              ],
+              "10",
+            ],
+          ],
+        },
+      ]
+
+      const $ = (id) => document.getElementById(id)
+      let problem = 0
+      let step = 0
+
+      function esc(s) {
+        return String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c])
+      }
+
+      function lookup(frames, frameName, varName) {
+        const frame = frames.find((f) => f[0] === frameName)
+        const found = frame && frame[1].find((v) => v[0] === varName)
+        return found ? found[1] : undefined
+      }
+
+      function pointerTags(frames) {
+        const tags = {}
+        for (const [, vars] of frames) {
+          for (const [name, value] of vars) {
+            if (value && value.to) {
+              const key = value.i === undefined ? value.to : `${value.to}[${value.i}]`
+              tags[key] = (tags[key] ? tags[key] + "," : "") + name
+            }
+          }
+        }
+        return tags
+      }
+
+      function renderVar(frameName, name, value, prevFrames, tags) {
+        const prev = prevFrames ? lookup(prevFrames, frameName, name) : undefined
+        const differs = (a, b) => prevFrames && JSON.stringify(a) !== JSON.stringify(b)
+        if (Array.isArray(value)) {
+          const cells = value
+            .map((v, i) => {
+              const hit = prev !== undefined && differs(v, prev[i]) ? " changed" : ""
+              return `<span class="cell"><span class="tag">${tags[`${name}[${i}]`] || ""}</span><span class="val${hit}">${v}</span><span class="idx">[${i}]</span></span>`
+            })
+            .join("")
+          return `<div class="var"><span>${name}</span><span class="cells">${cells}</span></div>`
+        }
+        const hit = differs(value, prev) ? " changed" : ""
+        const text =
+          value && value.to
+            ? `→ ${value.i === undefined ? value.to : `${value.to}[${value.i}]`}`
+            : value
+        const tag = tags[name] ? ` <span style="color:var(--secondary)">← ${tags[name]}</span>` : ""
+        return `<div class="var"><span>${name}</span><span class="val scalar${hit}">${esc(text)}</span>${tag}</div>`
+      }
+
+      function renderTabs() {
+        $("tabs").innerHTML = PROBLEMS.map(
+          (p, i) =>
+            `<button role="tab" aria-selected="${i === problem}" data-i="${i}">${p.label}</button>`,
+        ).join("")
+      }
+
+      function render() {
+        const p = PROBLEMS[problem]
+        const [line, note, frames, output] = p.steps[step]
+        const prevFrames = step > 0 ? p.steps[step - 1][2] : null
+        const tags = pointerTags(frames)
+        $("code").innerHTML = p.code
+          .split("\n")
+          .map(
+            (text, i) =>
+              `<span class="line${i + 1 === line ? " on" : ""}"><i>${i + 1}</i>${esc(text) || " "}</span>`,
+          )
+          .join("")
+        $("mem").innerHTML = frames
+          .map(([name, vars]) => {
+            const body = vars.map((v) => renderVar(name, v[0], v[1], prevFrames, tags)).join("")
+            return `<div class="frame${vars.length ? "" : " empty"}"><b>${name}</b>${body || "아직 변수 없음"}</div>`
+          })
+          .join("")
+        $("out").textContent = output || ""
+        $("note").textContent = note
+        $("pos").textContent = `${step + 1} / ${p.steps.length}`
+        $("first").disabled = $("prev").disabled = step === 0
+        $("next").disabled = step === p.steps.length - 1
+        fit()
+      }
+
+      // 단계마다 메모리 칸 수가 달라도 버튼이 움직이지 않도록 가장 큰 높이를 미리 잡는다
+      function reserve() {
+        const current = step
+        const boxes = [$("mem"), $("note")]
+        const max = boxes.map(() => 0)
+        boxes.forEach((box) => (box.style.minHeight = ""))
+        for (step = 0; step < PROBLEMS[problem].steps.length; step++) {
+          render()
+          boxes.forEach((box, i) => (max[i] = Math.max(max[i], box.offsetHeight)))
+        }
+        step = current
+        boxes.forEach((box, i) => (box.style.minHeight = `${max[i]}px`))
+        render()
+      }
+
+      function go(delta) {
+        const last = PROBLEMS[problem].steps.length - 1
+        step = Math.min(last, Math.max(0, step + delta))
+        render()
+      }
+
+      function fit() {
+        try {
+          const frame = window.frameElement
+          if (frame)
+            frame.style.height = `${Math.ceil(document.body.getBoundingClientRect().height)}px`
+        } catch {}
+      }
+
+      function syncTheme() {
+        let theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        try {
+          theme = parent.document.documentElement.getAttribute("saved-theme") || theme
+        } catch {}
+        document.documentElement.dataset.theme = theme
+      }
+
+      $("tabs").addEventListener("click", (e) => {
+        const i = e.target.dataset.i
+        if (i === undefined) return
+        problem = Number(i)
+        step = 0
+        $("guess").value = ""
+        $("verdict").textContent = ""
+        $("verdict").className = ""
+        for (const tab of $("tabs").children) {
+          tab.setAttribute("aria-selected", tab === e.target)
+        }
+        reserve()
+      })
+      $("first").onclick = () => go(-Infinity)
+      $("prev").onclick = () => go(-1)
+      $("next").onclick = () => go(1)
+      $("check").onclick = () => {
+        const normalize = (s) => s.trim().replace(/\s+/g, " ")
+        const guess = normalize($("guess").value)
+        if (!guess) return
+        const correct = guess === PROBLEMS[problem].answer
+        $("verdict").textContent = correct
+          ? "정답입니다."
+          : "다시 생각해 보세요. 아래에서 한 줄씩 따라가 볼 수 있습니다."
+        $("verdict").className = correct ? "good" : "bad"
+        fit()
+      }
+      $("guess").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") $("check").click()
+      })
+      document.addEventListener("keydown", (e) => {
+        if (e.target === $("guess")) return
+        if (e.key === "ArrowRight") go(1)
+        if (e.key === "ArrowLeft") go(-1)
+      })
+      // fit()이 iframe 높이를 바꿔도 resize가 발생하므로 너비가 바뀔 때만 다시 잰다
+      let lastWidth = innerWidth
+      window.addEventListener("resize", () => {
+        if (innerWidth === lastWidth) return
+        lastWidth = innerWidth
+        reserve()
+      })
+      syncTheme()
+      try {
+        new MutationObserver(syncTheme).observe(parent.document.documentElement, {
+          attributes: true,
+          attributeFilter: ["saved-theme"],
+        })
+      } catch {}
+      renderTabs()
+      reserve()
+    </script>
+  </body>
+</html>

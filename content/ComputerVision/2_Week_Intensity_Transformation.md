@@ -1,7 +1,7 @@
 ---
 title: "[CV] Intensity Transformation"
 description: Intensity Transformation이란?
-draft: false
+draft: true
 tags:
   - computer_vision
 ---

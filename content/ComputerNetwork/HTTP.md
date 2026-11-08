@@ -1,7 +1,7 @@
 ---
 title: 컴퓨터 네트워크 - HTTP (Hypertext Transfer Protocol)
 description: HTTP란????
-draft: false
+draft: true
 tags:
   - computer_network
   - web

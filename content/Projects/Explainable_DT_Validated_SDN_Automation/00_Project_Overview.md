@@ -1,7 +1,7 @@
 ---
 title: 00 - Digital Twin 검증과 XAI 설명 계층을 활용한 안전한 LLM/RAG 기반 Intent-Driven SDN 운영 자동화 시스템
 description: 핵심은 LLM이 SDN 정책을 생성하는 데에 그치는게 아니라, LLM이 생성한 정책을 인간이 검증 가능하고 설명 가능하게 만들어 안전하게 적용하는 것을 중점으로 한다.
-draft: false
+draft: true
 tags:
   - Project
   - XAI

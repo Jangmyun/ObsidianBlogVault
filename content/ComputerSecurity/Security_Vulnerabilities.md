@@ -1,7 +1,7 @@
 ---
 title: "[ComSec] 보안 취약점"
 description: "\b보안 취약점 관리"
-draft: false
+draft: true
 tags:
   - example-tag
 ---

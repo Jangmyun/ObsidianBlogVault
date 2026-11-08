@@ -1,7 +1,7 @@
 ---
 title: "[CV] Histogram Equalization"
 description: Histogram Equalization과 예제 코드
-draft: false
+draft: true
 tags:
   - computer_vision
 ---
